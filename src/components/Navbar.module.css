@@ -6,3 +6,7 @@
 .item {
     color: #FFFFFF;
 }
+
+.active {
+    color: #1100ff;
+}

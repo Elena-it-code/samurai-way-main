@@ -1,14 +1,70 @@
 .content {
     grid-area: c;
-    background-color: #AFE7B5;
+    background-color: rgba(0, 178, 255, 0.13);
 }
 
-.content img {
+.fon {
     display: block;
-    max-width: 100%;
-    max-height: 100%;
+    background-size: 300px;
+    width: 1080px;
+    height: 300px;
 }
 
-.item{
+.item {
     color: magenta;
 }
+
+/* Style for MAIN section with: block1: div avatar and block2: div Description/
+.wrapper {
+    display: flex;
+    margin-top: 10px;
+}
+
+/* Style for block1: div avatar and block2: div Description. placed them side by side */
+.block1, .block2{
+    display: inline-block;
+}
+
+.block2 {
+    margin-left: 10px;
+    line-height: 1.5vh;
+}
+
+/* Style for avatar*/
+.avatar {
+    width: 150px;
+    height: 150px;
+}
+
+/* Style for input 'your news'*/
+.input {
+    width: 900px;
+    height: 60px;
+    background-color: rgba(28, 27, 27, 0.13);
+
+}
+
+/* Style for button Send*/
+.sendPost {
+    float: right;
+    margin-right: 170px;
+    margin-top: 10px;
+    padding: 10px 40px;
+    color: white;
+    background: #428d33;
+}
+
+
+
+
+
+
+
+/*.circle {
+        width: 50px;
+        height: 50px;
+        background: #ffea00;
+        -moz-border-radius: 50px;
+        -webkit-border-radius: 50px;
+        border-radius: 50px;
+}*/

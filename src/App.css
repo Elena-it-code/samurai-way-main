@@ -1,5 +1,5 @@
 .app-wrapper {
-    width: 1080px;
+    width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-areas:
@@ -9,11 +9,9 @@
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
 
+    font-size: 18px;
 
 }
-
-
-
 
 
 /*.App {
