@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import './components/Header.module.css';
-import './components/Profile.module.css';
-import './components/Navbar.module.css';
-import {Header} from "./components/Header";
-import {Navbar} from "./components/Navbar";
-import {Profile} from "./components/Profile";
+import './components/Header/Header.module.css';
+import './components/Profile/Profile.module.css';
+import './components/Navbar/Navbar.module.css';
+
+import {Navbar} from "./components/Navbar/Navbar";
+import {Profile} from "./components/Profile/Profile";
+import {Header} from "./components/Header/Header";
 
 
 function App() {

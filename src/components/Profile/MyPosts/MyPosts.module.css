@@ -1,0 +1,17 @@
+/* Style for input 'your news'*/
+.textarea {
+    width: 900px;
+    height: 60px;
+    background-color: rgba(28, 27, 27, 0.13);
+
+}
+
+/* Style for button Send*/
+.sendPost {
+    float: right;
+    margin-right: 170px;
+    margin-top: 10px;
+    padding: 10px 40px;
+    color: white;
+    background: #428d33;
+}

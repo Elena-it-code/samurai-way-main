@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Profile.module.css"
+import {MyPosts} from "./MyPosts/MyPosts";
 
 export const Profile = () => {
     return (
@@ -21,24 +22,7 @@ export const Profile = () => {
                 </div>
                 {/*ava + description*/}
                 <div>
-                    <h2>My posts</h2>
-                    <div>
-                        <input className={classes.input} placeholder={'your news'}/>
-                    </div>
-                    <div>
-                        <button className={classes.sendPost}>Send</button>
-                    </div>
-                    {/*<div>
-                        New Post
-                    </div>*/}
-                    <div className={classes.posts}>
-                        <div className={`${classes.item} ${classes.circle}`}>
-                            Post 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </div>
-                        <div className={`${classes.item} ${classes.circle}`}>
-                            Post 2: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </div>
-                    </div>
+                    <MyPosts/>
                 </div>
             </div>
         </div>
