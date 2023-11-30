@@ -16,8 +16,8 @@ export const MyPosts: FC = () => {
                 New Post
             </div>
             <div className={classes.posts}>
-            <Post message={'Hi, how are you?'} like={53}/>
-            <Post message={"It's my posts"} like={37}/>
+            <Post message={'Hi, how are you?'} likesCount={53}/>
+            <Post message={"It's my posts"} likesCount={37}/>
             </div>
         </div>
     )

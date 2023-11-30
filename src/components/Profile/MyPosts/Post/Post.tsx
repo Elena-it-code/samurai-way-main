@@ -4,7 +4,7 @@ import classes from "./Post.module.css";
 
 export type PostsPropsType={
     message: string;
-    like: number
+    likesCount: number
 }
 export const Post: FC<PostsPropsType> = (props) => {
     return (
@@ -14,7 +14,7 @@ export const Post: FC<PostsPropsType> = (props) => {
                  alt={'My avatar'}/>
             {props.message}
             <div>
-                <span>Like 👍: {props.like}</span>
+                <span>Like 👍: </span> {props.likesCount}
             </div>
         </div>
     )
