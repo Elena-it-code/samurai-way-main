@@ -4,7 +4,7 @@ import {MyPosts} from "./MyPosts/MyPosts";
 
 export const Profile = () => {
     return (
-        <div className={classes.content}>
+        <div>
             <div><img className={classes.fon}
                       src='https://images.wallpaperscraft.ru/image/single/gorod_neboskreby_most_202527_3840x2400.jpg' alt={'fon image'}/>
                 <div/>

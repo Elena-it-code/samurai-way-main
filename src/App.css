@@ -13,6 +13,10 @@
 
 }
 
+.app-wrapper-content {
+    grid-area: c;
+    background-color: rgba(0, 178, 255, 0.13);
+}
 
 /*.App {
   text-align: center;
