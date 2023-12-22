@@ -15,3 +15,11 @@
     color: white;
     background: #428d33;
 }
+
+.postBlock {
+    padding: 10px;
+}
+
+.posts {
+    margin-top: 50px;
+}

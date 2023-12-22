@@ -4,8 +4,8 @@ import {Post} from "./Post/Post";
 
 export const MyPosts: FC = () => {
     return (
-        <div>
-            My Posts
+        <div className={classes.postBlock}>
+            <h3>My Posts</h3>
             <div>
                 <textarea className={classes.textarea} placeholder={'your news'}/>
             </div>

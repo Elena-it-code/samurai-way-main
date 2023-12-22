@@ -1,0 +1,32 @@
+
+
+.fon {
+    display: block;
+    background-size: 300px;
+    width: 1080px;
+    height: 300px;
+}
+
+/* Style for MAIN section with: block1: div avatar and block2: div Description*/
+.wrapper {
+    display: flex;
+}
+
+/* Style for block1: div avatar and block2: div Description. placed them side by side */
+.block1, .descriptionBlock{
+    display: inline-block;
+}
+
+.descriptionBlock {
+    margin-left: 10px;
+    line-height: 1.5vh;
+}
+
+/* Style for avatar*/
+.avatar {
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+}
+
+
