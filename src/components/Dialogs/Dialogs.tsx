@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 
+
 type DialogItemTypeProps = {
     name: string
     id: number
@@ -40,21 +41,22 @@ export const Dialogs = (props: DialogItemTypeProps) => {
     ]
 
     let messages = [
-        {id: 7, message: 'Hi'},
-        {id: 8, message: 'How is your it-kamasutra?'},
-        {id: 9, message: 'Yo'},
-        {id: 10, message: 'Yo'},
-        {id: 11, message: 'Yo'},
-        {id: 12, message: 'Yo'}
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'How is your it-kamasutra?'},
+        {id: 3, message: 'Yo'},
+        {id: 4, message: 'Yo'},
+        {id: 6, message: 'Yo'},
+        {id: 5, message: 'Yo'}
 
     ]
 
-    let dialogsElement = dialogs.map(el => <DialogItem name={el.name} id={el.id} key={el.id}/>)
-    let messagesElement = messages.map(el => <Dialogs name={el.message} id={el.id} key={el.id}/>)
+    let dialogsElement = dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
+    let messagesElement = messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
 
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
+                {/*{dialogs.map(el => <DialogItem key={el.id} id={el.id} name={el.name}/>)}*/}
                 {dialogsElement}
                 {/*<DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
                 <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
@@ -64,7 +66,8 @@ export const Dialogs = (props: DialogItemTypeProps) => {
                 <DialogItem name={dialogsData[5].name} id={dialogsData[5].id}/>*/}
             </div>
             <div className={classes.messages}>
-                {/*{messagesElement}*/}
+                {/*{messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>)}*/}
+                {messagesElement}
                 {/*       <Message message={messagesData[0].message} id={messagesData[0].id}/>
                 <Message message={messagesData[1].message} id={messagesData[1].id}/>
                 <Message message={messagesData[2].message} id={messagesData[2].id}/>
