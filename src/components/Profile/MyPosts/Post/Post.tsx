@@ -6,6 +6,7 @@ export type PostsPropsType={
     message: string;
     likesCount: number
 }
+
 export const Post: FC<PostsPropsType> = (props) => {
     return (
         <div className={`${classes.item} ${classes.circle}`}>
