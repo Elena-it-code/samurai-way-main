@@ -1,17 +1,18 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {PostsDataTypeProps} from "../../../index";
+import {RootStateType, state} from "../../../redux/state";
 
 
 
-export const MyPosts= (props: PostsDataTypeProps) => {
+
+export const MyPosts= (state: RootStateType) => {
 
     /*let postsData = [
         {id: 1, message: 'Hi, how are you?', likesCount: 53},
         {id: 2, message: "It's my posts", likesCount: 37},
     ]*/
 
-    let postsElement = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
+    let postsElement = state.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     return (
         <div className={classes.postBlock}>
