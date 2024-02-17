@@ -1,7 +1,7 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {state} from "../../redux/state";
+import {RootStateType, state} from "../../redux/state";
 
 
 /*export type PostDataType = {
@@ -17,11 +17,11 @@ export const postsData = [
     {id: 1, message: 'Hi, how are you?', likesCount: 53},
     {id: 2, message: "It's my posts", likesCount: 37},
 ]*/
-export const Profile = () => {
+export const Profile = (props: RootStateType) => {
     return (
         <div>
             <ProfileInfo />
-            <MyPosts key={state.key.id}/>
+            <MyPosts state={props.state}/>
         </div>
     )
 }

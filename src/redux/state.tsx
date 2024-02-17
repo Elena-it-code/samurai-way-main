@@ -11,9 +11,9 @@ export type MessagesTypeProps = {
     id: number
     message: string
 }
-export type KeyType = {
+/*export type KeyType = {
     id: number
-}
+}*/
 type PostsDataTypeProps = {
     postsData: Array<PostDataType>
 }
@@ -21,24 +21,27 @@ type DialogsItemType = {
     dialogs: DialogItemType[]
     messages: MessagesTypeProps[]
 }
-export type RootStateType = {
-    key: KeyType
+export type StateType = {
+
     profilePage: PostsDataTypeProps
     dialogsPage: DialogsItemType
+}
+export type RootStateType = {
+    state: StateType
 }
 
 
 export const state: RootStateType = {
-        key: {
-            id: 1
-        },
+    /*key: {
+        id: 1
+    },*/
+    state: {
         profilePage: {
             postsData: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 53},
                 {id: 2, message: "It's my posts", likesCount: 37},
             ]
         },
-
         dialogsPage: {
             dialogs: [
                 {id: 1, name: 'Dimych'},
@@ -48,7 +51,6 @@ export const state: RootStateType = {
                 {id: 5, name: 'Victor'},
                 {id: 6, name: 'Valera'}
             ],
-
             messages: [
                 {id: 1, message: 'Hi'},
                 {id: 2, message: 'How is your it-kamasutra?'},
@@ -58,11 +60,24 @@ export const state: RootStateType = {
                 {id: 5, message: 'Yo'}
             ]
         }
-
-
         /*sidebar: {}*/
-
+    }
 }
+
+/* export default state*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -167,7 +182,6 @@ export type RootStateType = {
     dialogsPage:  DialogsItemType
     /!*sidebar: SidebarType*!/
 }*/
-
 
 
 /*

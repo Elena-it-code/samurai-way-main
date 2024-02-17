@@ -9,6 +9,7 @@ import {state} from "./redux/state";
 
 
 
+
 ReactDOM.render(
-    <App key={state.key.id}/>, document.getElementById('root')
+    <App state={state.state} />, document.getElementById('root')
 );
