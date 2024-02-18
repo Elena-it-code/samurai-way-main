@@ -1,6 +1,3 @@
-import classes from "../components/FriendsSidebar/Friends.module.css";
-import React from "react";
-
 export type PostDataType = {
     id: number,
     message: string,
@@ -28,17 +25,20 @@ export type FriendsType = {
 type FriendsTypeProps = {
     friends: Array<FriendsType>
 }
-
 export type StateType = {
     profilePage: PostsDataTypeProps
     dialogsPage: DialogsItemType
     sidebar: FriendsTypeProps
+
 }
 export type RootStateType = {
     state: StateType
 }
 
-
+export type MainStateType = {
+    state: RootStateType
+    addPost: (postMessage: string)=> void
+}
 export const state: RootStateType = {
     state: {
         profilePage: {
@@ -75,4 +75,14 @@ export const state: RootStateType = {
     }
 }
 
+export const addPost = (postMessage: string)=> {
+    debugger
+    let newPost: PostDataType = {
+        id: 5,
+        message: postMessage,
+        likesCount: 0
+    }
+    //state.state.profilePage.postsData.map(el=>[{...el, newPost}])
+    state.state.profilePage.postsData.push(newPost)
 
+}

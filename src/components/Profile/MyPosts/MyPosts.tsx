@@ -1,10 +1,16 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
-import {RootStateType} from "../../../redux/state";
+import {MainStateType, MessagesType, RootStateType} from "../../../redux/state";
 
+type PostDataType = {
+    id: number,
+    message: string,
+    likesCount: number
+    addPost: (postMessage: string)=> void
+}
 
-export const MyPosts= (props:RootStateType ) => {
+export const MyPosts= (props:MainStateType) => {
 
     /*let postsData = [
         {id: 1, message: 'Hi, how are you?', likesCount: 53},
@@ -13,11 +19,12 @@ export const MyPosts= (props:RootStateType ) => {
 
     let newPostsElement = React.createRef<HTMLTextAreaElement>();
     const addPostHandler = ()=> {
-        let text = newPostsElement.current?.value
-        alert(text)
+        debugger
+        // let text = newPostsElement.current?.value
+        props.addPost(newPostsElement.current ? newPostsElement.current.value : ' ')
     }
 
-    let postsElement = props.state.profilePage.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
+    let postsElement = props.state.state.profilePage.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
 
     return (
