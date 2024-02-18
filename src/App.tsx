@@ -13,6 +13,8 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {RootStateType} from "./redux/state";
+import {Friends} from "./components/Friends/Friends";
+
 
 function App (props:RootStateType) {
     return (
@@ -21,13 +23,12 @@ function App (props:RootStateType) {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    {/*<Route path={'/dialogs'} component={Dialogs}/>*/}
-                    {/*<Route path={'/profile'} component={Profile}/>*/}
                     <Route path={'/dialogs'} render={  () => <Dialogs state={props.state}/>}  />
                     <Route path={'/profile'} render={  ()=> <Profile state={props.state}/>  }  />
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
+                    <Route path={'/friends'} render={ ()=> <Friends state={props.state}/> }/>
                 </div>
             </div>
         </BrowserRouter>

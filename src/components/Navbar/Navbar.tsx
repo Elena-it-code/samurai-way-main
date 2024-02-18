@@ -1,6 +1,8 @@
 import React from "react";
 import classes from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
+import {FriendsSidebar} from "../FriendsSidebar/FriendsSidebar";
+import {RootStateType} from "../../redux/state";
 
 
 export const Navbar = () => {
@@ -20,6 +22,12 @@ export const Navbar = () => {
             </div>
             <div className={classes.item}>
                 <NavLink to={'/settings'} activeClassName={classes.active}>Settings</NavLink>
+            </div>
+            <div className={classes.item}>
+                <NavLink to={'/friends'} >
+                    <h2 style= { {color: '#FFFFFFF', textAlign: 'center'} }>Friends</h2>
+                    <FriendsSidebar />
+                </NavLink>
             </div>
         </nav>
     )

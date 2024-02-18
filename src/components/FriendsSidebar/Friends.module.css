@@ -1,0 +1,11 @@
+.item {
+    color: #1100ff;
+    align-content: center;
+}
+.avaFriends {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    margin-right: 10px;
+
+}
