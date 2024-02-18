@@ -29,6 +29,12 @@ export const Dialogs = (props: RootStateType) => {
     let dialogsElement = props.state.dialogsPage.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
     let messagesElement = props.state.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
 
+    let newMessage = React.createRef<HTMLTextAreaElement>();
+    const addNewMessage= ()=> {
+        let message = newMessage.current?.value
+        alert(message)
+    }
+
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
@@ -50,6 +56,12 @@ export const Dialogs = (props: RootStateType) => {
                 <Message message={messagesData[3].message} id={messagesData[3].id}/>
                 <Message message={messagesData[4].message} id={messagesData[4].id}/>
                 <Message message={messagesData[5].message} id={messagesData[5].id}/>*/}
+            </div>
+            <div>
+                <textarea ref={newMessage} className={classes.textarea} placeholder={'your news'}></textarea>
+            </div>
+            <div>
+                <button onClick={ addNewMessage } className={classes.sendPost}>Add message</button>
             </div>
         </div>
     )
