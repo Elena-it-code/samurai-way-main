@@ -19,9 +19,11 @@ export const MyPosts= (props:MainStateType) => {
 
     let newPostsElement = React.createRef<HTMLTextAreaElement>();
     const addPostHandler = ()=> {
-        debugger
         // let text = newPostsElement.current?.value
         props.addPost(newPostsElement.current ? newPostsElement.current.value : ' ')
+        if (newPostsElement.current) { // проверка на существование оюъекта. Если `newPostsElement.current` не равно `null` или `undefined`, то условие возвратит `true`, и соответствующий блок кода будет выполнен.
+            newPostsElement.current.value = ''; // Очистка значения поля ввода
+        }
     }
 
     let postsElement = props.state.state.profilePage.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
