@@ -15,6 +15,7 @@ export type MessagesType = {
 }
 type PostsDataTypeProps = {
     postsData: Array<PostDataType>
+    newPostText: string
 }
 type DialogsItemType = {
     dialogs: DialogItemType[]
@@ -40,6 +41,7 @@ export type RootStateType = {
 export type MainStateType = {
     state: RootStateType
     addPost: (postMessage: string)=> void
+    updateNewPostText: (newText: string)=> void
 }
 export const state: RootStateType = {
     state: {
@@ -47,7 +49,8 @@ export const state: RootStateType = {
             postsData: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 53},
                 {id: 2, message: "It's my posts", likesCount: 37},
-            ]
+            ],
+            newPostText: "it-kamasutra.com"
         },
         dialogsPage: {
             dialogs: [
@@ -77,14 +80,20 @@ export const state: RootStateType = {
     }
 }
 
-export const addPost = (postMessage: string)=> {
+export const addPost = ()=> {
     debugger
     let newPost: PostDataType = {
         id: 5,
-        message: postMessage,
+        message: state.state.profilePage.newPostText,
         likesCount: 0
     }
     //state.state.profilePage.postsData.map(el=>[{...el, newPost}])
-    state.state.profilePage.postsData.push(newPost)
+    state.state.profilePage.postsData.push(newPost);
+    state.state.profilePage.newPostText = " ";  // зачищаем из BLL поле ввода input, после нажатия кнопки AddPost
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostText = (newText: string)=> {
+    state.state.profilePage.newPostText = newText;
     rerenderEntireTree(state)
 }

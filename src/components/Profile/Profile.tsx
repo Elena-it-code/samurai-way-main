@@ -22,7 +22,7 @@ export const Profile = (props: MainStateType ) => {
     return (
         <div>
             <ProfileInfo />
-            <MyPosts state={props.state} addPost={props.addPost}/>
+            <MyPosts state={props.state} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
         </div>
     )
 }
