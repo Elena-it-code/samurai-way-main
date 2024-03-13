@@ -1,4 +1,4 @@
-import {rerenderEntireTree} from "../render";
+
 
 export type PostDataType = {
     id: number,
@@ -43,6 +43,11 @@ export type MainStateType = {
     addPost: (postMessage: string)=> void
     updateNewPostText: (newText: string)=> void
 }
+
+let rerenderEntireTree = ()=>{
+    console.log('State was changed');
+}
+
 export const state: RootStateType = {
     state: {
         profilePage: {
@@ -90,10 +95,14 @@ export const addPost = ()=> {
     //state.state.profilePage.postsData.map(el=>[{...el, newPost}])
     state.state.profilePage.postsData.push(newPost);
     state.state.profilePage.newPostText = " ";  // зачищаем из BLL поле ввода input, после нажатия кнопки AddPost
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewPostText = (newText: string)=> {
     state.state.profilePage.newPostText = newText;
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+
+export const subscribe = (observer: ()=>void ) => {
+    rerenderEntireTree = observer; //  observer/наблюдатель  // publisher-subscriber // ПАТТЕРНЫ // по этому же принципу работает addEventListener, onClick, onChange
 }
