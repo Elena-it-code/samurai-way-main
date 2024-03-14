@@ -1,11 +1,14 @@
 import React from "react";
-import {RootStateType} from "../../redux/state";
+import {FriendsType, RootStateType, StoreType} from "../../redux/state";
 
+type FriendsTypeProps = {
+    friends: Array<FriendsType>
+}
 
-export const Friends =(props: RootStateType)=>{
+export const Friends =(props: FriendsTypeProps)=>{
     return (
         <div>
-            {props.state.sidebar.friends.map(el=>el.name)}
+            {props.friends.map(el=>el.name)}
         </div>
     )
 }

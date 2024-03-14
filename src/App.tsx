@@ -12,11 +12,18 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
-import {MainStateType, RootStateType} from "./redux/state";
 import {Friends} from "./components/Friends/Friends";
+import {StoreType} from "./redux/state";
 
 
-function App(props: MainStateType) {
+type PropsType = {
+    store: StoreType
+}
+
+const App: React.FC<PropsType> = (props) => {
+    const state = props.store.getState()
+
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -24,17 +31,18 @@ function App(props: MainStateType) {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path={'/dialogs'}
-                           render={() => <Dialogs state={props.state.state}/>}/>
+                           render={() => <Dialogs  dialogs={state.dialogsPage.dialogs} messages={state.dialogsPage.messages}/>}/>
 
                     <Route path={'/profile'}
-                           render={() => <Profile state={props.state}
-                                                  addPost={props.addPost}
-                                                  updateNewPostText={props.updateNewPostText}/>}/>
+                           render={() => <Profile postsData={props.store._state.profilePage.postsData}
+                                                  //addPost={props.store.addPost.bind(props.store)}
+                                                  addPost={props.store.addPost.bind(props.store)}
+                                                  updateNewPostText={props.store.updateNewPostText.bind(props.store)}/>}/>
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
-                    <Route path={'/friends'} render={() => <Friends state={props.state.state}/>}/>
+                    <Route path={'/friends'} render={() => <Friends friends={state.sidebar.friends}/>}/>
                 </div>
             </div>
         </BrowserRouter>
