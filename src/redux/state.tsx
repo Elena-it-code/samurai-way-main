@@ -49,7 +49,7 @@ export type StoreType = {
     _state: RootStateType,
     addPost: (newPostText: string)=> void,
     updateNewPostText: (newText: string)=> void,
-    rerenderEntireTree: ()=> void,
+    _callSubscriber: ()=> void,
     subscribe: (observer: ()=> void)=> void
     getState: ()=> RootStateType
 }
@@ -57,14 +57,14 @@ export type StoreType = {
 
 
 export const store: StoreType= {
-    _state: {
+    _state: { // здесь зранятся все наши data
         profilePage: {
             postsData: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 53},
                 {id: 2, message: "It's my posts", likesCount: 37},
             ],
             newPostText: "it-kamasutra.com"
-        },      // начальное состояние для страницы профиля
+        }, // начальное состояние для страницы профиля
         dialogsPage: {
             dialogs: [
                 {id: 1, name: 'Dimych'},
@@ -82,39 +82,41 @@ export const store: StoreType= {
                 {id: 6, message: 'Yo'},
                 {id: 5, message: 'Yo'}
             ]
-        },      // начальное состояние для страницы диалогов
+        }, // начальное состояние для страницы диалогов
         sidebar: {
             friends: [
                 {id: 1, name: 'Olga'},
                 {id: 2, name: 'Artem'},
                 {id: 3, name: 'Igor'},
             ]
-        }      // начальное состояние для боковой панели
+        } // начальное состояние для боковой панели
     },
-    addPost (newPostText:string) {
+    // здесь хранятся все наши методы объекта store
+    addPost (newPostText: string) {
         let newPost: PostDataType = {
             id: 5,
-            message: newPostText,
+            message: this._state.profilePage.newPostText,
+            //message: newPostText,
             likesCount: 0
         }
         //state.state.profilePage.postsData.map(el=>[{...el, newPost}])
         this._state.profilePage.postsData.push(newPost);
         this._state.profilePage.newPostText = " ";  // зачищаем из BLL поле ввода input, после нажатия кнопки AddPost
-        this.rerenderEntireTree()
-    },     // Логика для добавления нового поста
+        this._callSubscriber()
+    }, // Логика для добавления нового поста
     updateNewPostText (newText: string) {
         this._state.profilePage.newPostText = newText;
-        this.rerenderEntireTree()
-    },     // Логика для обновления текста нового поста
-    rerenderEntireTree (){
+        this._callSubscriber()
+    }, // Логика для обновления текста нового поста
+    _callSubscriber (){
         console.log('State changed')
-    },     // Логика для перерисовки приложения
+    }, // Логика для перерисовки приложения
     subscribe (observer){
-        this.rerenderEntireTree = observer;
-    },     // Логика для подписки на изменения в хранилище
+        this._callSubscriber = observer;
+    }, // Логика для подписки на изменения в хранилище
     getState() {
         return this._state;
-    }     // Возвращает текущее состояние
+    } // Возвращает текущее состояние
 }
 
 

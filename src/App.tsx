@@ -13,10 +13,10 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
-import {StoreType} from "./redux/state";
+import {RootStateType, StoreType} from "./redux/state";
 
 
-type PropsType = {
+export type PropsType = {
     store: StoreType
 }
 
@@ -34,8 +34,7 @@ const App: React.FC<PropsType> = (props) => {
                            render={() => <Dialogs  dialogs={state.dialogsPage.dialogs} messages={state.dialogsPage.messages}/>}/>
 
                     <Route path={'/profile'}
-                           render={() => <Profile postsData={props.store._state.profilePage.postsData}
-                                                  //addPost={props.store.addPost.bind(props.store)}
+                           render={() => <Profile postsData={state.profilePage.postsData}
                                                   addPost={props.store.addPost.bind(props.store)}
                                                   updateNewPostText={props.store.updateNewPostText.bind(props.store)}/>}/>
 

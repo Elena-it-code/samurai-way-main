@@ -2,6 +2,7 @@ import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
 import {PostDataType, StoreType} from "../../../redux/state";
+import {PropsType} from "../../../App";
 
 // type PostDataType = {
 //     id: number,
@@ -17,7 +18,7 @@ type MyPostsProps = {
     newPostText: string
 }
 
-export const MyPosts= (props: MyPostsProps) => {
+export const MyPosts= (props: MyPostsProps ) => {
 
     /*let postsData = [
         {id: 1, message: 'Hi, how are you?', likesCount: 53},
@@ -27,7 +28,7 @@ export const MyPosts= (props: MyPostsProps) => {
 
     let newPostsElement = React.createRef<HTMLTextAreaElement>();
     const addPostHandler = ()=> {
-        props.addPost(" ")
+        props.addPost('')
         //props.updateNewPostText(' ') //  Мы на прямую в UI НЕ МОЖЕМ зачищать поле ввода ТАК НЕЛЬЗЯ!!! Теперь в самом теперь state/BLL нам зачищает поле ввода
 
             //let text = newPostsElement.current?.value
