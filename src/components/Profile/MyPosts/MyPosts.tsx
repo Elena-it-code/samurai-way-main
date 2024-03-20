@@ -29,7 +29,7 @@ export const MyPosts= (props: MyPostsProps ) => {
     let newPostsElement = React.createRef<HTMLTextAreaElement>();
     const addPostHandler = ()=> {
         props.addPost('')
-        //props.updateNewPostText(' ') //  Мы на прямую в UI НЕ МОЖЕМ зачищать поле ввода ТАК НЕЛЬЗЯ!!! Теперь в самом теперь state/BLL нам зачищает поле ввода
+        //props.updateNewPostText(' ') //  Мы на прямую в UI НЕ МОЖЕМ зачищать поле ввода ТАК НЕЛЬЗЯ!!! Теперь state/BLL нам зачищает поле ввода
 
             //let text = newPostsElement.current?.value
         //props.addPost(newPostsElement.current ? newPostsElement.current.value : ' ')

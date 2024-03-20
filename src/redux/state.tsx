@@ -57,7 +57,7 @@ export type StoreType = {
 
 
 export const store: StoreType= {
-    _state: { // здесь зранятся все наши data
+    _state: { // здесь xранятся все наши data
         profilePage: {
             postsData: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 53},
