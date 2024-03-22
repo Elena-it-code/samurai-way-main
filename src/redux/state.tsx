@@ -1,6 +1,4 @@
 
-
-
 export type PostDataType = {
     id: number,
     message: string,
@@ -47,12 +45,25 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType,
-    addPost: (newPostText: string)=> void,
-    updateNewPostText: (newText: string)=> void,
+    // addPost: () => void,
+    // updateNewPostText: (newText: string)=> void,
     _callSubscriber: ()=> void,
     subscribe: (observer: ()=> void)=> void
     getState: ()=> RootStateType
+    dispatch: (action: ActionTypes)=> void
 }
+
+type AddPostActionType = {
+    type: "ADD-POST"
+    //newPostText: string
+}
+
+type UpdateNewPostTextActionType = {
+    type: "UPDATE-NEW-POST-TEXT"
+    newText: string
+}
+
+export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType
 
 
 
@@ -92,22 +103,7 @@ export const store: StoreType= {
         } // начальное состояние для боковой панели
     },
     // здесь хранятся все наши методы объекта store
-    addPost (newPostText: string) {
-        let newPost: PostDataType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            //message: newPostText,
-            likesCount: 0
-        }
-        //state.state.profilePage.postsData.map(el=>[{...el, newPost}])
-        this._state.profilePage.postsData.push(newPost);
-        this._state.profilePage.newPostText = " ";  // зачищаем из BLL поле ввода input, после нажатия кнопки AddPost
-        this._callSubscriber()
-    }, // Логика для добавления нового поста
-    updateNewPostText (newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber()
-    }, // Логика для обновления текста нового поста
+
     _callSubscriber (){
         console.log('State changed')
     }, // Логика для перерисовки приложения
@@ -116,13 +112,54 @@ export const store: StoreType= {
     }, // Логика для подписки на изменения в хранилище
     getState() {
         return this._state;
-    } // Возвращает текущее состояние
+    }, // Возвращает текущее состояние
+
+    dispatch(action){ // Если мы хотим как-то изменить данные, теперь обращаемя к dispatch
+        if (action.type === "ADD-POST") {
+            let newPost: PostDataType = {
+                id: 5,
+                message: this._state.profilePage.newPostText,
+                //message: action.newPostText,
+                likesCount: 0
+            }
+            //state.state.profilePage.postsData.map(el=>[{...el, newPost}])
+            this._state.profilePage.postsData.push(newPost);
+            this._state.profilePage.newPostText = " ";  // зачищаем из BLL поле ввода input, после нажатия кнопки AddPost
+            this._callSubscriber()
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber()
+        }
+    }
 }
+// store - OOP
 
 
 
 
+//--------------------------------------------------------------------------------------------------------------------//
+//УДАЛИЛИ НАШИ МЕТОДЫ ИЗ ОБЪЕКТА store ПОСЛЕ ВВОДА МЕТОДА dispatch, ТЕПЕРЬ ВСЕ В НЕМ
+// addPost () {
+//     let newPost: PostDataType = {
+//         id: 5,
+//         message: this._state.profilePage.newPostText,
+//         //message: newPostText,
+//         likesCount: 0
+//     }
+//     //state.state.profilePage.postsData.map(el=>[{...el, newPost}])
+//     this._state.profilePage.postsData.push(newPost);
+//     this._state.profilePage.newPostText = " ";  // зачищаем из BLL поле ввода input, после нажатия кнопки AddPost
+//     this._callSubscriber()
+// }, // Логика для добавления нового поста
+// updateNewPostText (newText: string) {
+//     this._state.profilePage.newPostText = newText;
+//     this._callSubscriber()
+// }, // Логика для обновления текста нового поста
 
+
+
+
+//--------------------------------------------------------------------------------------------------------------------//
 // export const state: RootStateType = {
 //     state: {
 //         profilePage: {

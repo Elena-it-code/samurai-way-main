@@ -13,14 +13,15 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
-import {RootStateType, StoreType} from "./redux/state";
+import {ActionTypes, RootStateType, StoreType} from "./redux/state";
 
 
 export type PropsType = {
     store: StoreType
+    dispatch: (action: ActionTypes) => void
 }
 
-const App: React.FC<PropsType> = (props) => {
+const App: React.FC<PropsType> = (props: PropsType) => {
     const state = props.store.getState()
 
 
@@ -31,12 +32,18 @@ const App: React.FC<PropsType> = (props) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path={'/dialogs'}
-                           render={() => <Dialogs  dialogs={state.dialogsPage.dialogs} messages={state.dialogsPage.messages}/>}/>
+                           render={() => <Dialogs dialogs={state.dialogsPage.dialogs}
+                                                  messages={state.dialogsPage.messages}/>}/>
 
                     <Route path={'/profile'}
-                           render={() => <Profile postsData={state.profilePage.postsData}
-                                                  addPost={props.store.addPost.bind(props.store)}
-                                                  updateNewPostText={props.store.updateNewPostText.bind(props.store)} newPostText={props.store._state.profilePage.newPostText}/>}/>
+                           render={ () => <Profile postsData={state.profilePage.postsData}
+                                                   dispatch={props.dispatch}
+                           newPostText={state.profilePage.newPostText}/> }/>
+
+                    {/*render={() => <Profile postsData={state.profilePage.postsData}
+                                           addPost={props.dispatch}
+                                           updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                                           newPostText={props.store._state.profilePage.newPostText}/>}/>*/}
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
