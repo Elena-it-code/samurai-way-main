@@ -2,6 +2,7 @@ import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
 import {ProfileProps} from "../Profile";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/state";
 
 
 /*type MyPostsProps = {
@@ -21,7 +22,7 @@ export const MyPosts= (props: ProfileProps) => {
     let newPostsElement = React.createRef<HTMLTextAreaElement>();
     const addPostHandler = ()=> {
         //props.addPost('') // мы раньше дергали методы из объекта store, и эти методы нам говорили, что нам надо сделать
-        props.dispatch({type: "ADD-POST"} as const) // здесь мы вызываем один и тот же метод у store, но мы внутрь передаем тот самый action/объект, у которого как минимум есть свойство type:"XXX-XXX", который сообщит нашему store какое намерение мы хотим сделать из компоненты
+        props.dispatch(addPostAC()) // здесь мы вызываем один и тот же метод у store, но мы внутрь передаем тот самый action/объект, у которого как минимум есть свойство type:"XXX-XXX", который сообщит нашему store какое намерение мы хотим сделать из компоненты
 
 
         //props.updateNewPostText(' ') //  Мы на прямую в UI НЕ МОЖЕМ зачищать поле ввода ТАК НЕЛЬЗЯ!!! Теперь state/BLL нам зачищает поле ввода
@@ -37,9 +38,7 @@ export const MyPosts= (props: ProfileProps) => {
     let onPostChange =()=>{
         let text = newPostsElement.current?.value;
         //props.updateNewPostText(text ? text : " ") // мы раньше дергали методы из объекта store, и эти методы нам говорили, что нам надо сделать
-        let action = {type: "UPDATE-NEW-POST-TEXT", newText: text ? text : " "} as const;
-        props.dispatch(action)
-        //props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: text ? text : " "} as const) // можно и в одну строку записать сразу без создания переменной action
+        props.dispatch(updateNewPostTextAC(text ? text : " "))
 
 
             // if (text !== undefined) {

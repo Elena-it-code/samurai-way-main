@@ -53,17 +53,17 @@ export type StoreType = {
     dispatch: (action: ActionTypes)=> void
 }
 
-type AddPostActionType = {
+/*type AddPostActionType = {
     type: "ADD-POST"
     //newPostText: string
-}
+}*/
 
-type UpdateNewPostTextActionType = {
+/*type UpdateNewPostTextActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
-}
+}*/
 
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType
+export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>
 
 
 
@@ -134,6 +134,24 @@ export const store: StoreType= {
 }
 // store - OOP
 
+export const addPostAC = () => {
+    return {
+        type: "ADD-POST"
+    } as const
+}
+
+export const updateNewPostTextAC = (newText: string) => {
+    return {
+        type: "UPDATE-NEW-POST-TEXT",
+        newText
+    } as const
+}
+
+
+
+
+
+
 
 
 
@@ -155,9 +173,6 @@ export const store: StoreType= {
 //     this._state.profilePage.newPostText = newText;
 //     this._callSubscriber()
 // }, // Логика для обновления текста нового поста
-
-
-
 
 //--------------------------------------------------------------------------------------------------------------------//
 // export const state: RootStateType = {
