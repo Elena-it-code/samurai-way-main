@@ -1,70 +1,71 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
-import {DialogItem, } from "./DialogItem/DialogItem";
+import {DialogItem,} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogItemType, MessagesType, RootStateType} from "../../redux/state";
+import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/state";
+import {PropsType} from "../../App";
 
-type DialogsItemType = {
+/*type DialogsItemType = {
     dialogs: DialogItemType[]
     messages: MessagesType[]
-}
-export const Dialogs = (props: DialogsItemType) => {
+    newMessageBody: string
+    dispatch: (action: ActionTypes) => void
+}*/
+export const Dialogs = (props: PropsType) => {
 
-   /* let dialogs = [
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Andrey'},
-        {id: 3, name: 'Sveta'},
-        {id: 4, name: 'Saha'},
-        {id: 5, name: 'Victor'},
-        {id: 6, name: 'Valera'}
+    let state = props.store.getState().dialogsPage
 
-    ]
-
-    let messages = [
-        {id: 1, message: 'Hi'},
-        {id: 2, message: 'How is your it-kamasutra?'},
-        {id: 3, message: 'Yo'},
-        {id: 4, message: 'Yo'},
-        {id: 6, message: 'Yo'},
-        {id: 5, message: 'Yo'}
-
-    ]*/
-    let dialogsElement = props.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
-    let messagesElement = props.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
+    let dialogsElement = state.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
+    let messagesElement = state.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
+    let newMessageBody = state.newMessageBody
 
     let newMessage = React.createRef<HTMLTextAreaElement>();
-    const addNewMessage= ()=> {
-        let message = newMessage.current?.value
-        alert(message)
+    const onSendMessageClick = () => {
+        props.dispatch(sendMessageAC())
+        // Функция `onSendMessageClick` является обработчиком события, который вызывается при нажатии на кнопку отправки
+        // сообщения.
+        // Вызывается диспетчер (dispatch) события `sendMessageAC()` с использованием `props.dispatch(sendMessageAC())`.
+        // Это вызывает отправку сообщения в приложении.
+        // Внутренняя реализация/логика функции `sendMessageAC` в нашем state добавит новое сообщение
+    }
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.target.value
+        props.dispatch(updateNewMessageBodyAC(body))
+        // Функция `onNewMessageChange` является обработчиком события и вызывается при изменении содержимого текстового
+        // поля (textarea), связанного с отправкой нового сообщения. Внутри этой функции происходят следующие действия:
+        //1. Параметр `e` представляет объект события `ChangeEvent`, который генерируется при изменении значения
+        // текстового поля.
+        //
+        // 2. Мы извлекаем новое значение текстового поля из свойства `value` объекта события `e.target`.
+        // Это значение представляет текст, который пользователь вводит в текстовое поле.
+        //
+        // 3. Затем вызывается диспетчер (dispatch) события `updateNewMessageBodyAC(body)`, где `body` – это содержимое
+        // текстового поля, которое мы предварительно извлекли. Функция `updateNewMessageBodyAC` в нашем store
+        // обновит состояние приложения, добавив новый текст сообщения к формируемому для отправки сообщению.
+        //
+        // Поэтому, данная функция обрабатывает событие изменения текста в текстовом поле для формирования нового
+        // сообщения и передает это значение в диспетчер для его дальнейшей обработки в приложении.
     }
 
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
-                {/*{dialogs.map(el => <DialogItem key={el.id} id={el.id} name={el.name}/>)}*/}
                 {dialogsElement}
-                {/*<DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
-                <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
-                <DialogItem name={dialogsData[2].name} id={dialogsData[2].id}/>
-                <DialogItem name={dialogsData[3].name} id={dialogsData[3].id}/>
-                <DialogItem name={dialogsData[4].name} id={dialogsData[4].id}/>
-                <DialogItem name={dialogsData[5].name} id={dialogsData[5].id}/>*/}
             </div>
             <div className={classes.messages}>
-                {/*{messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>)}*/}
-                {messagesElement}
-                {/*       <Message message={messagesData[0].message} id={messagesData[0].id}/>
-                <Message message={messagesData[1].message} id={messagesData[1].id}/>
-                <Message message={messagesData[2].message} id={messagesData[2].id}/>
-                <Message message={messagesData[3].message} id={messagesData[3].id}/>
-                <Message message={messagesData[4].message} id={messagesData[4].id}/>
-                <Message message={messagesData[5].message} id={messagesData[5].id}/>*/}
+                <div>{messagesElement}</div>
             </div>
             <div>
-                <textarea ref={newMessage} className={classes.textarea} placeholder={'your news'}></textarea>
-            </div>
-            <div>
-                <button onClick={ addNewMessage } className={classes.sendPost}>Add message</button>
+                <div>
+                    <textarea value={newMessageBody}
+                              onChange={onNewMessageChange}
+                              ref={newMessage}
+                              className={classes.textarea}
+                              placeholder={'Enter your message'}></textarea>
+                </div>
+                <div>
+                    <button onClick={onSendMessageClick} className={classes.sendPost}>Send</button>
+                </div>
             </div>
         </div>
     )

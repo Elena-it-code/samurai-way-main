@@ -13,7 +13,7 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
-import {ActionTypes, RootStateType, StoreType} from "./redux/state";
+import {ActionTypes, StoreType} from "./redux/state";
 
 
 export type PropsType = {
@@ -31,19 +31,16 @@ const App: React.FC<PropsType> = (props: PropsType) => {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path={'/dialogs'}
-                           render={() => <Dialogs dialogs={state.dialogsPage.dialogs}
-                                                  messages={state.dialogsPage.messages}/>}/>
+                    <Route
+                        path={'/dialogs'} // <Route /> следит за url, если написано /dialogs, значит выпоняет код ниже, т.е. запускает функцию render={() =>}
+                           render={() => <Dialogs store={props.store}
+                                                  dispatch={props.dispatch}/>}/>
 
                     <Route path={'/profile'}
-                           render={ () => <Profile postsData={state.profilePage.postsData}
-                                                   dispatch={props.dispatch}
-                           newPostText={state.profilePage.newPostText}/> }/>
+                           render={() => <Profile postsData={state.profilePage.postsData}
+                                                  dispatch={props.dispatch}
+                                                  newPostText={state.profilePage.newPostText}/>}/>
 
-                    {/*render={() => <Profile postsData={state.profilePage.postsData}
-                                           addPost={props.dispatch}
-                                           updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                                           newPostText={props.store._state.profilePage.newPostText}/>}/>*/}
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
@@ -57,3 +54,4 @@ const App: React.FC<PropsType> = (props: PropsType) => {
 
 
 export default App;
+

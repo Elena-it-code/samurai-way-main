@@ -15,10 +15,12 @@ export type MessagesType = {
 type PostsDataTypeProps = {
     postsData: Array<PostDataType>
     newPostText: string
+
 }
 type DialogsItemType = {
     dialogs: DialogItemType[]
     messages: MessagesType[]
+    newMessageBody: string
 }
 export type FriendsType = {
     id: number
@@ -63,7 +65,10 @@ export type StoreType = {
     newText: string
 }*/
 
-export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>
+export type ActionTypes = ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof updateNewMessageBodyAC>
+    | ReturnType<typeof sendMessageAC>
 
 
 
@@ -92,7 +97,9 @@ export const store: StoreType= {
                 {id: 4, message: 'Yo'},
                 {id: 6, message: 'Yo'},
                 {id: 5, message: 'Yo'}
-            ]
+            ],
+        newMessageBody: "",
+
         }, // начальное состояние для страницы диалогов
         sidebar: {
             friends: [
@@ -129,6 +136,17 @@ export const store: StoreType= {
         } else if (action.type === "UPDATE-NEW-POST-TEXT") {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber()
+        } else if (action.type === "UPDATE-NEW-MESSAGE-BODY") {
+            this._state.dialogsPage.newMessageBody = action.body
+            this._callSubscriber()
+        } else if (action.type === "SEND-MESSAGE") {
+            let body = this._state.dialogsPage.newMessageBody
+            this._state.dialogsPage.newMessageBody = " "
+            this._state.dialogsPage.messages.push({
+                id: 6,
+                message: body
+            })
+            this._callSubscriber()
         }
     }
 }
@@ -144,6 +162,18 @@ export const updateNewPostTextAC = (newText: string) => {
     return {
         type: "UPDATE-NEW-POST-TEXT",
         newText
+    } as const
+}
+
+export const updateNewMessageBodyAC = (body: string) => {
+    return {
+        type: "UPDATE-NEW-MESSAGE-BODY",
+        body
+    } as const
+}
+export const sendMessageAC = () => {
+    return {
+        type: "SEND-MESSAGE"
     } as const
 }
 

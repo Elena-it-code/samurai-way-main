@@ -9,7 +9,7 @@ export const Navbar = () => {
     return (
         <nav className={classes.nav}>
             <div className={`${classes.item} ${classes.active}`}>
-                <NavLink to={'/profile'} activeClassName={classes.active}>Profile</NavLink>
+                <NavLink to={'/profile'} activeClassName={classes.active}>Profile</NavLink> {/*NavLink -задача изменить адресный путь в браузере*/}
             </div>
             <div className={classes.item}>
                 <NavLink to={'/dialogs'} activeClassName={classes.active}>Messages</NavLink>
