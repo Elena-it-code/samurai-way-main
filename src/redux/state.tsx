@@ -1,3 +1,6 @@
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 export type PostDataType = {
     id: number,
@@ -12,7 +15,7 @@ export type MessagesType = {
     id: number
     message: string
 }
-type PostsDataTypeProps = {
+export type PostsDataTypeProps = {
     postsData: Array<PostDataType>
     newPostText: string
 
@@ -47,9 +50,9 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType,
-    // addPost: () => void,
-    // updateNewPostText: (newText: string)=> void,
-    _callSubscriber: ()=> void,
+    //addPost: () => void,
+    //updateNewPostText: (newText: string)=> void,
+    _callSubscriber: (_state: RootStateType)=> void,
     subscribe: (observer: ()=> void)=> void
     getState: ()=> RootStateType
     dispatch: (action: ActionTypes)=> void
@@ -69,6 +72,7 @@ export type ActionTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
+    | ReturnType<typeof sidebarAC>
 
 
 
@@ -111,7 +115,7 @@ export const store: StoreType= {
     },
     // здесь хранятся все наши методы объекта store
 
-    _callSubscriber (){
+    _callSubscriber (state: RootStateType){
         console.log('State changed')
     }, // Логика для перерисовки приложения
     subscribe (observer){
@@ -122,7 +126,12 @@ export const store: StoreType= {
     }, // Возвращает текущее состояние
 
     dispatch(action){ // Если мы хотим как-то изменить данные, теперь обращаемя к dispatch
-        if (action.type === "ADD-POST") {
+        //this._state.profilePage = profileReducer(this._state.profilePage, action)
+        //this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        //this._state.sidebar= sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber(this._state) // уведомили подписчика
+        /*if (action.type === "ADD-POST") {
             let newPost: PostDataType = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -147,7 +156,7 @@ export const store: StoreType= {
                 message: body
             })
             this._callSubscriber()
-        }
+        }*/
     }
 }
 // store - OOP
@@ -174,6 +183,12 @@ export const updateNewMessageBodyAC = (body: string) => {
 export const sendMessageAC = () => {
     return {
         type: "SEND-MESSAGE"
+    } as const
+}
+
+export const sidebarAC = () => {
+    return {
+        type: " "
     } as const
 }
 
