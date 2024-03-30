@@ -1,4 +1,4 @@
-import {ActionTypes, RootStateType} from "./state";
+import {ActionTypes, RootStateType} from "./store";
 
 export const dialogsReducer = (state: RootStateType, action: ActionTypes) => {
     switch (action.type) {

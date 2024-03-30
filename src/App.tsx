@@ -13,7 +13,7 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
-import {ActionTypes, StoreType} from "./redux/state";
+import {ActionTypes, StoreType} from "./redux/store";
 
 
 export type PropsType = {

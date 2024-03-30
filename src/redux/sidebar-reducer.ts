@@ -1,4 +1,4 @@
-import {ActionTypes, PostDataType, RootStateType} from "./state";
+import {ActionTypes, PostDataType, RootStateType} from "./store";
 
 export const sidebarReducer = (state: RootStateType, action: ActionTypes) => {
     switch (action.type) {

@@ -1,5 +1,5 @@
 import './index.css';
-import {store, StoreType} from "./redux/state";
+import {store, StoreType} from "./redux/store";
 import ReactDOM from "react-dom";
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
