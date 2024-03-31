@@ -37,8 +37,6 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType,
-    //addPost: () => void,
-    //updateNewPostText: (newText: string)=> void,
     _callSubscriber: (_state: RootStateType)=> void,
     subscribe: (observer: ()=> void)=> void
     getState: ()=> RootStateType

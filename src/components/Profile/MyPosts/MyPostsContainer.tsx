@@ -5,26 +5,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType, store} from "../../../redux/redux-store";
 
 
-type MyPostsProps = {
 
-}
-
-export const MyPostsContainer= (props: MyPostsProps) => { // задача контейнерной компоненты удовлетворить нужды презентационной
-
-    let state = store.getState();
+export const MyPostsContainer= () => { // задача контейнерной компоненты удовлетворить нужды презентационной
 
     const postsData = useSelector<AppRootStateType, Array<PostDataType>>(state => state.profilePage.postsData);
-    const dispatch = useDispatch();
 
     const addPostHandler = ()=> {
-        dispatch(addPostAC())
+        store.dispatch(addPostAC())
     }
     let onPostChange =(text: string)=>{
-        dispatch(updateNewPostTextAC(text ? text : " "))
+        store.dispatch(updateNewPostTextAC(text ? text : " "))
     }
     //задача контейнерной компоненты отрисоавть презентационную компоненту и снобдить/передать ей необходимые данные
     return (
-        <MyPosts addPost={addPostHandler} updateNewPostText={onPostChange} newPostText={state.profilePage.newPostText} postsData={postsData}/>
+        <MyPosts addPost={addPostHandler} updateNewPostText={onPostChange} newPostText={store.getState().profilePage.newPostText} postsData={postsData}/>
     )
 }
 

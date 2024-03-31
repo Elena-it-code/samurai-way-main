@@ -7,22 +7,19 @@ import './components/Navbar/Navbar.module.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
-import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
-import {AppRootStateType, store} from "./redux/redux-store";
-import {ActionTypes} from "./redux/store";
+import {AppRootStateType} from "./redux/redux-store";
 import {useDispatch, useSelector} from "react-redux";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 
 export type PropsType = {
-    store: AppRootStateType
-    dispatch: (action: ActionTypes) => void
+
 }
 
 

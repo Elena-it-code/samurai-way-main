@@ -4,6 +4,12 @@ import {DialogItem,} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsItemType} from "../../redux/store";
 
+/*
+* Теперь наша компонента чистая, она принимает данные, и вызывает какие-то callback(и), если вдруг у неё что-то произойдет.
+Мы теперь переиспользовать её в другом месте нашего проекта
+ничего не поламается, т.к. она НЕ ЗАВИСИТ теперь от каких-то данных
+*/
+
 
 export type DialogsPageType = {
     dialogsPage: DialogsItemType

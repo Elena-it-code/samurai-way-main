@@ -1,34 +1,28 @@
 import React from "react";
 import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/store";
 import {store} from "../../redux/redux-store";
-import {useDispatch} from "react-redux";
 import {Dialogs} from "./Dialogs";
 
 
-export type DialogsContainerType = {
-
-}
 
 
-export const DialogsContainer = (props: DialogsContainerType) => { // задача контейнерной компоненты удовлетворить нужды презентационной
-
-    let state = store.getState();
+export const DialogsContainer = () => { // задача контейнерной компоненты удовлетворить нужды презентационной
 
     // const dialogs = useSelector<AppRootStateType, DialogItemType[]>((state) => state.dialogsPage.dialogs);
     // const messages = useSelector<AppRootStateType, MessagesType[]>((state) => state.dialogsPage.messages);
     // const newMessageBody = useSelector<AppRootStateType, string>((state) => state.dialogsPage.newMessageBody);
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
 
     const onSendMessageClick = () => {
-        dispatch(sendMessageAC())
+        store.dispatch(sendMessageAC())
     }
 
     const onNewMessageChange = (body: string) => {
-        dispatch(updateNewMessageBodyAC(body))
+        store.dispatch(updateNewMessageBodyAC(body))
     }
     //задача контейнерной компоненты отрисоавть презентационную компоненту и снобдить/передать ей необходимые данные
     return (
-        <Dialogs updateNewMessageBody={onNewMessageChange} dialogsPage={state.dialogsPage} sendMessage={onSendMessageClick} />
+        <Dialogs updateNewMessageBody={onNewMessageChange} dialogsPage={store.getState().dialogsPage} sendMessage={onSendMessageClick} />
     )
 }
 

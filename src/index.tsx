@@ -11,19 +11,9 @@ let rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
-            <App store={store.getState()} dispatch={store.dispatch}/>
+            <App />
             </Provider>
-            {/*<App dispatch={store.dispatch.bind(store)}/>*/}
         </BrowserRouter>, document.getElementById('root'));
 }
 rerenderEntireTree()
 store.subscribe(rerenderEntireTree)
-
-
-
-//в 42 уроке Димыч именно так прописывает rerenderEntireTree(), чтобы подписаться на изменения store
-/*rerenderEntireTree()
-store.subscribe(()=> {
-    let state = store.getState();
-    rerenderEntireTree()
-})*/
