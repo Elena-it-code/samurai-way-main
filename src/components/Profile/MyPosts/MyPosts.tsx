@@ -1,34 +1,32 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
-import {ProfileProps} from "../Profile";
-import {addPostAC, PostDataType, updateNewPostTextAC} from "../../../redux/store";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../redux/redux-store";
+import {PostDataType} from "../../../redux/store";
+/*
+* Теперь наша компонента чистая, она принимает данные, и вызывает какие-то callback(и), если вдруг у неё что-то произойдет.
+Мы теперь переиспользовать её в другом месте нашего проекта
+ничего не поламается, т.к. она НЕ ЗАВИСИТ теперь от каких-то данных
+*/
 
-
-/*type MyPostsProps = {
+type MyPostsProps = {
     postsData: Array<PostDataType>
     addPost: (newPostText: string) => void;
     updateNewPostText: (newText: string)=> void,
     newPostText: string
-}*/
+}
 
-export const MyPosts= (props: ProfileProps) => {
+export const MyPosts= (props: MyPostsProps) => {
 
-    const postsData = useSelector<AppRootStateType, Array<PostDataType>>(state => state.profilePage.postsData)
-    const dispatch = useDispatch();
-
-
-    let postsElement = postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
+    let postsElement = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
     let newPostsElement = React.createRef<HTMLTextAreaElement>();
+
     const addPostHandler = ()=> {
-        dispatch(addPostAC())
+        props.addPost(" ")
     }
 
     let onPostChange =()=>{
         let text = newPostsElement.current?.value;
-        dispatch(updateNewPostTextAC(text ? text : " "))
+        props.updateNewPostText(text ? text : " ")
     }
 
     return (

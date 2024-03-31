@@ -1,56 +1,39 @@
-import React, {ChangeEvent} from "react";
-import classes from "./Dialogs.module.css";
-import {DialogItem,} from "./DialogItem/DialogItem";
-import {Message} from "./Message/Message";
-import {DialogsItemType} from "../../redux/store";
+import React from "react";
+import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/store";
+import {store} from "../../redux/redux-store";
+import {useDispatch} from "react-redux";
+import {Dialogs} from "./Dialogs";
 
 
-export type DialogsPageType = {
-    dialogsPage: DialogsItemType
-    updateNewMessageBody: (body: string)=> void
-    sendMessage: ()=> void
+export type DialogsContainerType = {
+
 }
 
 
-export const Dialogs = (props: DialogsPageType) => {
+export const DialogsContainer = (props: DialogsContainerType) => { // задача контейнерной компоненты удовлетворить нужды презентационной
 
-    let dialogsElement = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
-    let messagesElement = props.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
+    let state = store.getState();
 
-    let newMessage = React.createRef<HTMLTextAreaElement>();
+    // const dialogs = useSelector<AppRootStateType, DialogItemType[]>((state) => state.dialogsPage.dialogs);
+    // const messages = useSelector<AppRootStateType, MessagesType[]>((state) => state.dialogsPage.messages);
+    // const newMessageBody = useSelector<AppRootStateType, string>((state) => state.dialogsPage.newMessageBody);
+    const dispatch = useDispatch();
+
     const onSendMessageClick = () => {
-        props.sendMessage()
+        dispatch(sendMessageAC())
     }
 
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = e.target.value
-       props.updateNewMessageBody(body)
+    const onNewMessageChange = (body: string) => {
+        dispatch(updateNewMessageBodyAC(body))
     }
-
+    //задача контейнерной компоненты отрисоавть презентационную компоненту и снобдить/передать ей необходимые данные
     return (
-        <div className={classes.dialogs}>
-            <div className={classes.dialogsItems}>
-                {dialogsElement}
-            </div>
-            <div className={classes.messages}>
-                <div>{messagesElement}</div>
-            </div>
-            <div>
-                <div>
-                    <textarea value={props.dialogsPage.newMessageBody}
-                              onChange={onNewMessageChange}
-                              ref={newMessage}
-                              className={classes.textarea}
-                              placeholder={'Enter your message'}></textarea>
-                </div>
-                <div>
-                    <button onClick={onSendMessageClick} className={classes.sendPost}>Send</button>
-                </div>
-            </div>
-        </div>
+        <Dialogs updateNewMessageBody={onNewMessageChange} dialogsPage={state.dialogsPage} sendMessage={onSendMessageClick} />
     )
 }
 
+// идея контейнерной колмпоненты просто быть обверткой для обчычной компоненты, для чистой компоненты, для FC компоненты
+// Все что она делает, её задача удовлетворить нужды презентационной, ту которую она окружает
 
 
 
