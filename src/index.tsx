@@ -1,18 +1,29 @@
 import './index.css';
-import {store, StoreType} from "./redux/store";
 import ReactDOM from "react-dom";
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
+import {store} from "./redux/redux-store";
+import {Provider} from "react-redux";
+
 
 
 let rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App store={store} dispatch={store.dispatch.bind(store)}/>
+            <Provider store={store}>
+            <App state={store.getState()} dispatch={store.dispatch}/>
+            </Provider>
+            {/*<App dispatch={store.dispatch.bind(store)}/>*/}
         </BrowserRouter>, document.getElementById('root'));
 }
 rerenderEntireTree()
 store.subscribe(rerenderEntireTree)
 
-// state: { state: StateType; }
-//_state={store._state} addPost={store.addPost} updateNewPostText={store.updateNewPostText}
+
+
+//в 42 уроке Димыч именно так прописывает rerenderEntireTree(), чтобы подписаться на изменения store
+/*rerenderEntireTree()
+store.subscribe(()=> {
+    let state = store.getState();
+    rerenderEntireTree()
+})*/

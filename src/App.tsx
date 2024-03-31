@@ -13,16 +13,24 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
-import {ActionTypes, StoreType} from "./redux/store";
+import {AppRootStateType, store} from "./redux/redux-store";
+import {ActionTypes} from "./redux/store";
+import {useDispatch, useSelector} from "react-redux";
+
 
 
 export type PropsType = {
-    store: StoreType
+    state: AppRootStateType
     dispatch: (action: ActionTypes) => void
 }
 
-const App: React.FC<PropsType> = (props: PropsType) => {
-    const state = props.store.getState()
+const App: React.FC<PropsType> = () => {
+    const dispatch = useDispatch();
+
+    // здесь мы объединяем селекторы, объявленные в наших редьюсерах, чтобы получить все необходимые данные
+    const profilePage = useSelector((state: AppRootStateType) => state.profilePage);
+    const dialogsPage = useSelector((state: AppRootStateType) => state.dialogsPage);
+    const sidebar = useSelector((state: AppRootStateType) => state.sidebar);
 
 
     return (
@@ -33,19 +41,16 @@ const App: React.FC<PropsType> = (props: PropsType) => {
                 <div className="app-wrapper-content">
                     <Route
                         path={'/dialogs'} // <Route /> следит за url, если написано /dialogs, значит выпоняет код ниже, т.е. запускает функцию render={() =>}
-                           render={() => <Dialogs store={props.store}
-                                                  dispatch={props.dispatch}/>}/>
+                           render={() => <Dialogs dispatch={dispatch} dialogsPage={dialogsPage}/>}/>
 
                     <Route path={'/profile'}
-                           render={() => <Profile postsData={state.profilePage.postsData}
-                                                  dispatch={props.dispatch}
-                                                  newPostText={state.profilePage.newPostText}/>}/>
+                           render={() => <Profile dispatch={dispatch} newPostText={profilePage} postsData={store.getState().profilePage.postsData}/>}/>
 
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
-                    <Route path={'/friends'} render={() => <Friends friends={state.sidebar.friends}/>}/>
+                    <Route path={'/friends'} render={() => <Friends sidebar={sidebar} dispatch={dispatch}/>}/>
                 </div>
             </div>
         </BrowserRouter>

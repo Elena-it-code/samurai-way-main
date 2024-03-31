@@ -1,14 +1,18 @@
 import React from "react";
-import {FriendsType, RootStateType, StoreType} from "../../redux/store";
+import {store} from "../../redux/redux-store";
+import {ActionTypes} from "redux-form";
 
 type FriendsTypeProps = {
-    friends: Array<FriendsType>
+    /*friends: Array<FriendsType>*/
+    sidebar: any
+    dispatch: (action: ActionTypes) => void
 }
 
 export const Friends =(props: FriendsTypeProps)=>{
+    let state = store.getState()
     return (
         <div>
-            {props.friends.map(el=>el.name)}
+            {state.sidebar.friends.map(el=>el.name)}
         </div>
     )
 }

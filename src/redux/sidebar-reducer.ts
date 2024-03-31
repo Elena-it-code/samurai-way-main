@@ -1,6 +1,15 @@
-import {ActionTypes, PostDataType, RootStateType} from "./store";
+import {ActionTypes, FriendsTypeProps, PostDataType, RootStateType} from "./store";
 
-export const sidebarReducer = (state: RootStateType, action: ActionTypes) => {
+
+let initialState = {
+    friends: [
+        {id: 1, name: 'Olga'},
+        {id: 2, name: 'Artem'},
+        {id: 3, name: 'Igor'},
+    ]
+} // начальное состояние для боковой панели
+
+export const sidebarReducer = (state= initialState, action: ActionTypes) => {
     switch (action.type) {
 
         case " ": {
@@ -9,7 +18,7 @@ export const sidebarReducer = (state: RootStateType, action: ActionTypes) => {
             }
         }
         default:
-            throw new Error("I don't understand this type")
+            return state
     }}
 
 export default sidebarReducer;

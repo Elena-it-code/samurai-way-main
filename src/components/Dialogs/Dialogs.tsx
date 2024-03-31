@@ -2,26 +2,110 @@ import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import {DialogItem,} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/store";
-import {PropsType} from "../../App";
+import {DialogItemType, MessagesType, sendMessageAC, updateNewMessageBodyAC} from "../../redux/store";
+import {AppRootStateType} from "../../redux/redux-store";
+import {ActionTypes} from "redux-form";
+import {useDispatch, useSelector} from "react-redux";
 
-/*type DialogsItemType = {
-    dialogs: DialogItemType[]
-    messages: MessagesType[]
-    newMessageBody: string
+export type DialogsPageType = {
+    /*dialogs: DialogItemType[]
+    messages: MessagesType[]*/
+    /*newMessageBody: string*/
     dispatch: (action: ActionTypes) => void
-}*/
-export const Dialogs = (props: PropsType) => {
+    dialogsPage: any
+}
 
-    let state = props.store.getState().dialogsPage
 
-    let dialogsElement = state.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
-    let messagesElement = state.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
-    let newMessageBody = state.newMessageBody
+export const Dialogs = (props: DialogsPageType) => {
+    const dialogs = useSelector<AppRootStateType, DialogItemType[]>((state) => state.dialogsPage.dialogs);
+    const messages = useSelector<AppRootStateType, MessagesType[]>((state) => state.dialogsPage.messages);
+    const newMessageBody = useSelector<AppRootStateType, string>((state) => state.dialogsPage.newMessageBody);
+    const dispatch = useDispatch();
+
+
+    let dialogsElement = dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
+    let messagesElement = messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
 
     let newMessage = React.createRef<HTMLTextAreaElement>();
     const onSendMessageClick = () => {
-        props.dispatch(sendMessageAC())
+        dispatch(sendMessageAC())
+    }
+
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.target.value
+        dispatch(updateNewMessageBodyAC(body))
+    }
+
+    return (
+        <div className={classes.dialogs}>
+            <div className={classes.dialogsItems}>
+                {dialogsElement}
+            </div>
+            <div className={classes.messages}>
+                <div>{messagesElement}</div>
+            </div>
+            <div>
+                <div>
+                    <textarea value={newMessageBody}
+                              onChange={onNewMessageChange}
+                              ref={newMessage}
+                              className={classes.textarea}
+                              placeholder={'Enter your message'}></textarea>
+                </div>
+                <div>
+                    <button onClick={onSendMessageClick} className={classes.sendPost}>Send</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-------------------------------------------------------------------------------------------//
+/*
+let state = store.getState()
+
+    let dialogsElement = state.dialogsPage.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
+    let messagesElement = state.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
+    /!*let newMessageBody = state.dialogsPage.newMessageBody*!/
+
+    let newMessage = React.createRef<HTMLTextAreaElement>();
+    const onSendMessageClick = () => {
+        store.dispatch(sendMessageAC())
         // Функция `onSendMessageClick` является обработчиком события, который вызывается при нажатии на кнопку отправки
         // сообщения.
         // Вызывается диспетчер (dispatch) события `sendMessageAC()` с использованием `props.dispatch(sendMessageAC())`.
@@ -30,7 +114,7 @@ export const Dialogs = (props: PropsType) => {
     }
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value
-        props.dispatch(updateNewMessageBodyAC(body))
+        store.dispatch(updateNewMessageBodyAC(body))
         // Функция `onNewMessageChange` является обработчиком события и вызывается при изменении содержимого текстового
         // поля (textarea), связанного с отправкой нового сообщения. Внутри этой функции происходят следующие действия:
         //1. Параметр `e` представляет объект события `ChangeEvent`, который генерируется при изменении значения
@@ -69,4 +153,4 @@ export const Dialogs = (props: PropsType) => {
             </div>
         </div>
     )
-}
+}*/
