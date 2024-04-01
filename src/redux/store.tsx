@@ -1,22 +1,22 @@
-export type PostDataType = {
+type PostDataType = {
     id: number,
     message: string,
     likesCount: number
 }
-export type DialogItemType = {
+type DialogItemType = {
     name: string
     id: number
 }
-export type MessagesType = {
+type MessagesType = {
     id: number
     message: string
 }
-export type PostsDataTypeProps = {
+type PostsDataTypeProps = {
     postsData: Array<PostDataType>
     newPostText: string
 
 }
-export type DialogsItemType = {
+type DialogsItemType = {
     dialogs: DialogItemType[]
     messages: MessagesType[]
     newMessageBody: string

@@ -1,21 +1,17 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
-import {PostDataType} from "../../../redux/store";
+import {PostDataType} from "../../../redux/profile-reducer";
+import {MyPostsPropsType} from "./MyPostsContainer";
+
 /*
 * Теперь наша компонента чистая, она принимает данные, и вызывает какие-то callback(и), если вдруг у неё что-то произойдет.
 Мы теперь переиспользовать её в другом месте нашего проекта
 ничего не поламается, т.к. она НЕ ЗАВИСИТ теперь от каких-то данных
 */
 
-type MyPostsProps = {
-    postsData: Array<PostDataType>
-    addPost: (newPostText: string) => void;
-    updateNewPostText: (newText: string)=> void,
-    newPostText: string
-}
 
-export const MyPosts= (props: MyPostsProps) => {
+export const MyPosts= (props: MyPostsPropsType ) => {
 
     let postsElement = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
     let newPostsElement = React.createRef<HTMLTextAreaElement>();

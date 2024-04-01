@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import {DialogItem,} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsItemType} from "../../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
 /*
 * Теперь наша компонента чистая, она принимает данные, и вызывает какие-то callback(и), если вдруг у неё что-то произойдет.
@@ -11,14 +11,8 @@ import {DialogsItemType} from "../../redux/store";
 */
 
 
-export type DialogsPageType = {
-    dialogsPage: DialogsItemType
-    updateNewMessageBody: (body: string)=> void
-    sendMessage: ()=> void
-}
 
-
-export const Dialogs = (props: DialogsPageType) => {
+export const Dialogs = (props: DialogsPropsType) => {
 
     let dialogsElement = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
     let messagesElement = props.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)

@@ -1,7 +1,24 @@
 import {ActionTypes} from "./store";
 
+export type DialogsItemType = {
+    dialogs: DialogItemType[]
+    messages: MessagesType[]
+    newMessageBody: string
+}
 
-let initialState = {
+export type DialogItemType = {
+    name: string
+    id: number
+}
+export type MessagesType = {
+    id: number
+    message: string
+}
+
+export type initialStateType = typeof initialState // говорим сделай типизацию автоматическую вот этого объекта
+
+
+let initialState= {
     dialogs: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrey'},
@@ -9,7 +26,7 @@ let initialState = {
         {id: 4, name: 'Saha'},
         {id: 5, name: 'Victor'},
         {id: 6, name: 'Valera'}
-    ],
+    ] as DialogItemType[], // типизируем наши свойства для автоматики
     messages: [
         {id: 1, message: 'Hi'},
         {id: 2, message: 'How is your it-kamasutra?'},
@@ -17,12 +34,12 @@ let initialState = {
         {id: 4, message: 'Yo'},
         {id: 6, message: 'Yo'},
         {id: 5, message: 'Yo'}
-    ],
+    ] as MessagesType[], // типизируем наши свойства для автоматики
     newMessageBody: "",
 
 }// начальное состояние для страницы диалогов
 
-export const dialogsReducer = (state = initialState, action: ActionTypes) => {
+export const dialogsReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
         case "UPDATE-NEW-MESSAGE-BODY": {
             return {

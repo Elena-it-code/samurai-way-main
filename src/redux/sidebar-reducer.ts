@@ -1,4 +1,4 @@
-import {ActionTypes, FriendsTypeProps, PostDataType, RootStateType} from "./store";
+import {ActionTypes, FriendsTypeProps, RootStateType} from "./store";
 
 
 let initialState = {

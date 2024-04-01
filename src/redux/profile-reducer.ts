@@ -1,7 +1,18 @@
-import {ActionTypes, PostDataType} from "./store";
+import {ActionTypes} from "./store";
 
 
-let initialState = { // одноразовый объект, у него есть стартовые данные. В случае , если state не придет
+export type PostDataType = {
+    id: number,
+    message: string,
+    likesCount: number
+}
+
+type initialStateType = {
+    postsData: Array<PostDataType>
+    newPostText: string
+}
+
+let initialState: initialStateType = { // одноразовый объект, у него есть стартовые данные. В случае , если state не придет
     postsData: [
         {id: 1, message: 'Hi, how are you?', likesCount: 53},
         {id: 2, message: "It's my posts", likesCount: 37},
@@ -9,7 +20,7 @@ let initialState = { // одноразовый объект, у него ест�
     newPostText: "it-kamasutra.com"
 } // начальное состояние для страницы профиля
 
-const profileReducer = (state = initialState, action: ActionTypes) => { // то именно это объект initialState будет его начальным state(ом)
+const profileReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => { // то именно это объект initialState будет его начальным state(ом)
     switch (action.type) {
         case "ADD-POST": {
             let newPost: PostDataType = {

@@ -4,7 +4,7 @@ import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
-const reducers = combineReducers({ // по факту мы создали объект
+const rootReducer = combineReducers({ // по факту мы создали объект, один общий рутовый Редьюсер
     profilePage: profileReducer, // свойство profilePage и присвоили ему значение profileReducer, которе является редьюсером для страницы Profile и он отвечает за эту страницу
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
@@ -12,9 +12,9 @@ const reducers = combineReducers({ // по факту мы создали объ
 
 
 // непосредственно создаём store
-export const store= createStore(reducers); // закомбайненные редьюсеры отдаем store
+export const store= createStore(rootReducer); // закомбайненные редьюсеры отдаем store
 // определить автоматически тип всего объекта состояния
-export type AppRootStateType = ReturnType<typeof reducers>
+export type AppRootStateType = ReturnType<typeof rootReducer>
 
 
 // @ts-ignore
