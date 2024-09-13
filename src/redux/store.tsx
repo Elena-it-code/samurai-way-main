@@ -1,3 +1,6 @@
+import {initialStateType} from "./dialogs-reducer";
+import {UsersPropsType} from "../components/Users/UsersContainer";
+
 type PostDataType = {
     id: number,
     message: string,
@@ -32,6 +35,7 @@ export type RootStateType = {
     profilePage: PostsDataTypeProps
     dialogsPage: DialogsItemType
     sidebar: FriendsTypeProps
+    usersPage: UsersPropsType
 
 }
 
@@ -49,6 +53,7 @@ export type ActionTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
     | ReturnType<typeof sidebarAC>
+
 
 
 

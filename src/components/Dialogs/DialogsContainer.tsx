@@ -1,4 +1,3 @@
-import React from "react";
 import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/store";
 import {AppRootStateType, store} from "../../redux/redux-store";
 import {Dialogs} from "./Dialogs";
@@ -46,7 +45,7 @@ export type DialogsPropsType = MapStateToPropsType & mapDispatchToPropsType
 
 let mapStateToProps = (state: AppRootStateType) => { // эта функция возвращает объект. В этом объекте будут сидеть данные из стейта. dialogsPage как свойство попадет в пропсы в нашу компоненту
     return {
-        dialogsPage: state.dialogsPage // данные которые мы возьмем из стейта
+        dialogsPage: state.dialogsPage
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // callback(и), которые мы будем отправлять в нашу презентационную компоненту
