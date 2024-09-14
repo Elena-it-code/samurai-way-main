@@ -1,5 +1,6 @@
 export type UsersType = {
     id: number
+    photoUrl: string
     followed: boolean
     fullName: string
     status: string
@@ -19,48 +20,54 @@ const FOLLOW = "FOLLOW"
 
 let initialState: initialStateType = { // одноразовый объект, у него есть стартовые данные. В случае , если state не придет
     users: [
-       /* {
-            id: 1,
-            followed: false,
-            fullName: 'Sophia T.',
-            status: 'I am the Monarch of Motivation',
-            location: {country: ' Great Britain', city: 'Manchester'}
-        },
-        {
-            id: 2,
-            followed: true,
-            fullName: 'Olivia S.',
-            status: 'I am the King of the Jungle',
-            location: {country: 'France', city: 'Paris'}
-        },
-        {
-            id: 3,
-            followed: false,
-            fullName: 'Emma M.',
-            status: 'I am the Master of My Destiny',
-            location: {country: 'Italy', city: 'Rome'}
-        },
-        {
-            id: 4,
-            followed: false,
-            fullName: 'Harper T.',
-            status: 'I am the Captain of My Soul',
-            location: {country: 'Australia', city: 'Sydney'}
-        },
-        {
-            id: 5,
-            followed: true,
-            fullName: 'Mia F.',
-            status: 'I am the Czar of Confidence',
-            location: {country: 'Canada', city: 'Vancouver'}
-        },
-        {
-            id: 6,
-            followed: true,
-            fullName: 'Abigail D.',
-            status: 'I am the Ruler of Resilience',
-            location: {country: 'Germany', city: 'Berlin'}
-        }*/
+        // {
+        //     id: 1,
+        //     photoUrl: 'https://sun9-71.userapi.com/s/v1/ig2/856OFohw01cPP6KKQIF7JwrK-nARnFHfPI1m-6_LwEuxJUsWQgEdgBfEh4HQKPu-hdY4wY3-_jmwMdI0CFVFAdvG.jpg?size=400x400&quality=96&crop=203,0,833,833&ava=1',
+        //     followed: false,
+        //     fullName: 'Sophia T.',
+        //     status: 'I am the Monarch of Motivation',
+        //     location: {country: ' Great Britain', city: 'Manchester'}
+        // },
+        // {
+        //     id: 2,
+        //     photoUrl: 'https://sun9-71.userapi.com/s/v1/ig2/856OFohw01cPP6KKQIF7JwrK-nARnFHfPI1m-6_LwEuxJUsWQgEdgBfEh4HQKPu-hdY4wY3-_jmwMdI0CFVFAdvG.jpg?size=400x400&quality=96&crop=203,0,833,833&ava=1',
+        //     followed: true,
+        //     fullName: 'Olivia S.',
+        //     status: 'I am the King of the Jungle',
+        //     location: {country: 'France', city: 'Paris'}
+        // },
+        // {
+        //     id: 3,
+        //     photoUrl: 'https://sun9-71.userapi.com/s/v1/ig2/856OFohw01cPP6KKQIF7JwrK-nARnFHfPI1m-6_LwEuxJUsWQgEdgBfEh4HQKPu-hdY4wY3-_jmwMdI0CFVFAdvG.jpg?size=400x400&quality=96&crop=203,0,833,833&ava=1',
+        //     followed: false,
+        //     fullName: 'Emma M.',
+        //     status: 'I am the Master of My Destiny',
+        //     location: {country: 'Italy', city: 'Rome'}
+        // },
+        // {
+        //     id: 4,
+        //     photoUrl: 'https://sun9-71.userapi.com/s/v1/ig2/856OFohw01cPP6KKQIF7JwrK-nARnFHfPI1m-6_LwEuxJUsWQgEdgBfEh4HQKPu-hdY4wY3-_jmwMdI0CFVFAdvG.jpg?size=400x400&quality=96&crop=203,0,833,833&ava=1',
+        //     followed: false,
+        //     fullName: 'Harper T.',
+        //     status: 'I am the Captain of My Soul',
+        //     location: {country: 'Australia', city: 'Sydney'}
+        // },
+        // {
+        //     id: 5,
+        //     photoUrl: 'https://sun9-71.userapi.com/s/v1/ig2/856OFohw01cPP6KKQIF7JwrK-nARnFHfPI1m-6_LwEuxJUsWQgEdgBfEh4HQKPu-hdY4wY3-_jmwMdI0CFVFAdvG.jpg?size=400x400&quality=96&crop=203,0,833,833&ava=1',
+        //     followed: true,
+        //     fullName: 'Mia F.',
+        //     status: 'I am the Czar of Confidence',
+        //     location: {country: 'Canada', city: 'Vancouver'}
+        // },
+        // {
+        //     id: 6,
+        //     photoUrl: 'https://sun9-71.userapi.com/s/v1/ig2/856OFohw01cPP6KKQIF7JwrK-nARnFHfPI1m-6_LwEuxJUsWQgEdgBfEh4HQKPu-hdY4wY3-_jmwMdI0CFVFAdvG.jpg?size=400x400&quality=96&crop=203,0,833,833&ava=1',
+        //     followed: true,
+        //     fullName: 'Abigail D.',
+        //     status: 'I am the Ruler of Resilience',
+        //     location: {country: 'Germany', city: 'Berlin'}
+        // }
     ]
 } // начальное состояние для страницы user(ов)
 

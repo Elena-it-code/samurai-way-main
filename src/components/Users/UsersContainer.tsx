@@ -3,7 +3,9 @@ import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {followAC, setUsersAC, unFollowAC, UsersType} from "../../redux/users-reducer";
-import {initialStateType} from "../../redux/dialogs-reducer";
+
+
+
 
 // Тип для mapStateToProps
 type MapStateToPropsType = {
