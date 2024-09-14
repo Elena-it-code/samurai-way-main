@@ -8,16 +8,20 @@ import userPhoto from "../../assets/images/user.png"
 
 
 export const Users: React.FC<UsersPropsType> = (props: UsersPropsType) => {
-    if (props.usersPage.users.length === 0) { // если длина массива равна 0 то только в этом случае мы будем со старта сетать user(ов). Таким образом мы избавимся от зацикливания постоянно сетать user(ов)
+    const getUsers = () =>
+    {
+        if (props.usersPage.users.length === 0) { // если длина массива равна 0 то только в этом случае мы будем со старта сетать user(ов). Таким образом мы избавимся от зацикливания постоянно сетать user(ов)
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                props.setUsers(response.data.items)
-            })
-
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    props.setUsers(response.data.items)
+                })
+        }
     }
+
     return (
         <div>
+            <button onClick={getUsers}>Get Users</button>
             {
                 props.usersPage.users.map( u => <div key={u.id}>
                     <span>
