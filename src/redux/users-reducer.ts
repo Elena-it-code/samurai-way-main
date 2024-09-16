@@ -14,11 +14,10 @@ export type UsersType = {
     };
     status: string | null;
     followed: boolean;
-}
-
-type LocationType = {
-    country: string,
-    city: string
+    location?: { // Опционально, если location может быть undefined
+        country: string;
+        city: string;
+    };
 }
 
 type initialStateType = {

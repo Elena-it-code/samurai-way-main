@@ -1,8 +1,8 @@
-import {Users} from "./Users";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {followAC, setUsersAC, unFollowAC, UsersType} from "../../redux/users-reducer";
+import {Users} from "./Users";
 
 
 
@@ -21,7 +21,7 @@ type mapDispatchToPropsType = {
 }
 
 
-// Тип для пропсов компонента Users
+// Тип для пропсов компонента UsersComponentUnused
 export type UsersPropsType = MapStateToPropsType & mapDispatchToPropsType
 
 

@@ -15,7 +15,6 @@ import {Friends} from "./components/Friends/Friends";
 import {AppRootStateType} from "./redux/redux-store";
 import {useDispatch, useSelector} from "react-redux";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {Users} from "./components/Users/Users";
 import {UsersContainer} from "./components/Users/UsersContainer";
 
 
