@@ -8,8 +8,7 @@ import {RootStateType} from "../../redux/store";
 
 export class Users extends React.Component<UsersPropsType, RootStateType> {
 
-    constructor(props: UsersPropsType) {
-        super(props);
+    componentDidMount() {
 
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
@@ -77,6 +76,11 @@ export class Users extends React.Component<UsersPropsType, RootStateType> {
 //     предназначен для обновления состояния компонента с полученными данными.
 //     4. Обработка ошибок. Добавлен блок catch для обработки ошибок при выполнении запроса.
 //
-//     Типизация:
-// constructor(props: UsersPropsType):
-// Это типизация для конструктора, который содержит все необходимые свойства, включая setUsers.
+//      Типизация:
+//      constructor(props: UsersPropsType):
+//      Это типизация для конструктора, который содержит все необходимые свойства, включая setUsers.
+//
+//      componentDidMount:
+//      Запрос данных выполняется в методе componentDidMount, что является лучшей практикой для выполнения асинхронных
+//      операций при монтировании компонента.
+//      Метод жизненного цикла componentDidMount(), вызывается после того, как компонент был добавлен в DOM.
