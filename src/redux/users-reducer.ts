@@ -1,10 +1,4 @@
 export type UsersType = {
-    // id: number
-    // photoUrl: string
-    // followed: boolean
-    // name: string
-    // status: string
-    // location: LocationType
     name: string;
     id: number;
     uniqueUrlName: string | null;
@@ -22,21 +16,28 @@ export type UsersType = {
 
 type initialStateType = {
     users: UsersType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
-const FOLLOW = "FOLLOW"
 
 let initialState: initialStateType = { // одноразовый объект, у него есть стартовые данные. В случае , если state не придет
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0, // общее число user(ов)
+    currentPage: 6
+
 } // начальное состояние для страницы user(ов)
 
 
 const usersReducer = (state: initialStateType = initialState, action: ActionForUsersTypes): initialStateType => { // то именно это объект initialState будет его начальным state(ом)
     switch (action.type) {
-        case FOLLOW:
+
+        case "FOLLOW":
             return {
                 ...state, // сделали копию нашего state(а)
-                users: state.users.map(u => (u.id === action.userID ? {...u, followed: true} : u))
+                users: state.users.map(u => (u.id === action.payload.userID ? {...u, followed: true} : u))
                 // Эта же запись только более в развернутом варианте. Пошагово. Они индентичны.
                 // users: state.users.map(u => {
                 //     if(u.id === action.userID) {
@@ -45,19 +46,24 @@ const usersReducer = (state: initialStateType = initialState, action: ActionForU
                 //     return u
                 // })
             }
+
         case "UNFOLLOW":
             return {
                 ...state, // сделали копию нашего state(а)
-                users: state.users.map(u => (u.id === action.userID ? {...u, followed: false} : u))
+                users: state.users.map(u => (u.id === action.payload.userID ? {...u, followed: false} : u))
             }
+
         case "SET-USERS":
-            if ('users' in action) { // Добавили проверку if ('users' in action) перед доступом к свойству users в случае, когда action.type равно "SET-USERS". Это гарантирует, что TypeScript поймет, что свойство users существует в этом случае.
-                return {
-                    ...state,
-                    users: [...state.users, ...action.users]
-                }
-            }
-            return state;
+                //return {...state, users: [...state.users, ...action.payload.users] }
+                return {...state, users: action.payload.users } // перезатираем массив user(ов), а не добавляем в конец
+
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.payload.currentPage}
+
+        case "SET-TOTAL-USERS-COUNT":
+            return {...state, totalUsersCount: action.payload.count}
+
+
         default:
             return state // Возвращаем текущее состояние по умолчанию
     }
@@ -68,27 +74,57 @@ export type ActionForUsersTypes =
     | ReturnType<typeof followAC>
     | ReturnType<typeof unFollowAC>
     | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 export const followAC = (userID: number) => {
     return {
-        type: FOLLOW,
-        userID // значение user(а), которго нам нужно за- follow(ить) либо unFollow(ить)
-    } // либо таким способом указываем const через переменную
+        type: "FOLLOW",
+        payload: {
+            userID // значение user(а), которго нам нужно за- follow(ить) либо unFollow(ить)
+        } // либо таким способом указываем const через переменную
+    } as const
 }
 
 export const unFollowAC = (userID: number) => {
     return {
         type: "UNFOLLOW",
-        userID // значение user(а), которго нам нужно за- follow(ить) либо unFollow(ить)
+        payload: {
+            userID
+        } // значение user(а), которго нам нужно за- follow(ить) либо unFollow(ить)
     } as const  // либо таким способом указываем const через as const
 }
 
 export const setUsersAC = (users: UsersType[]) => {
     return {
         type: "SET-USERS",
-        users // откуда-то с сервака придут к нам эти users(ы)
+        payload: {
+            users
+        } // откуда-то с сервака придут к нам эти users(ы)
     } as const
 }
+
+
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        payload: {
+            currentPage
+        }
+    } as const
+}
+
+
+export const setTotalUsersCountAC = (totalUsersCount: number) => {
+    return {
+        type: "SET-TOTAL-USERS-COUNT",
+        payload: {
+            count: totalUsersCount
+        }
+    } as const
+}
+
+
 
 
 export default usersReducer;

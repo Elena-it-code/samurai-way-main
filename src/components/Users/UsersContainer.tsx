@@ -1,7 +1,14 @@
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import {followAC, setUsersAC, unFollowAC, UsersType} from "../../redux/users-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    unFollowAC,
+    UsersType
+} from "../../redux/users-reducer";
 import {Users} from "./Users";
 
 
@@ -11,6 +18,9 @@ import {Users} from "./Users";
 type MapStateToPropsType = {
     usersPage: {
         users: UsersType[]
+        pageSize: number
+        totalUsersCount: number
+        currentPage: number
     }
 }
 // Тип для mapDispatchToProps
@@ -18,6 +28,8 @@ type mapDispatchToPropsType = {
     follow: (useId: number)=> void
     unFollow: (useId: number)=> void
     setUsers: (users: UsersType[]) => void
+    setCurrentPage: (pageNumber: number)=>void
+    setTotalUsersCount: (totalCount: number) => void
 }
 
 
@@ -30,7 +42,10 @@ export type UsersPropsType = MapStateToPropsType & mapDispatchToPropsType
 let mapStateToProps = (state: AppRootStateType) => { // эта функция возвращает объект. В этом объекте будут сидеть данные из стейта. usersPage как свойство попадет в пропсы в нашу компоненту
     return {
         usersPage: {
-            users: state.usersPage.users // данные которые мы возьмем из стейта
+            users: state.usersPage.users, // данные которые мы возьмем из стейта
+            pageSize: state.usersPage.pageSize,
+            totalUsersCount: state.usersPage.totalUsersCount,
+            currentPage: state.usersPage.currentPage
         }
     }
 }
@@ -46,6 +61,12 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // ca
         },
         setUsers: (users: UsersType[])=>{
             dispatch(setUsersAC(users))
+        },
+        setCurrentPage: (pageNumber: number)=>{
+            dispatch(setCurrentPageAC(pageNumber))
+        },
+        setTotalUsersCount: (totalCount: number) =>{
+            dispatch(setTotalUsersCountAC(totalCount))
         }
     }
 }
