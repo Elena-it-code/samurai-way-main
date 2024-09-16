@@ -7,20 +7,23 @@ import {RootStateType} from "../../redux/store";
 
 
 export class Users extends React.Component<UsersPropsType, RootStateType> {
-    getUsers = () =>
-    {
-        if (this.props.usersPage.users.length === 0) { // если длина массива равна 0 то только в этом случае мы будем со старта сетать user(ов). Таким образом мы избавимся от зацикливания постоянно сетать user(ов)
 
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                })
-        }
+    constructor(props: UsersPropsType) {
+        super(props);
+
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+            .catch(error => { // Блок catch для обработки ошибок при выполнении запроса.
+                console.error('Error fetching users:', error);
+            });
+
     }
+
     render() {
         return (
             <div>
-                <button onClick={this.getUsers}>Get Users</button>
                 {
                     this.props.usersPage.users.map( u => <div key={u.id}>
                     <span>
@@ -58,3 +61,22 @@ export class Users extends React.Component<UsersPropsType, RootStateType> {
 
 // Типизация компонента:
 // React.Component<UsersProps, RootStateType> указывает на типизированные пропсы и состояние.
+
+// Объяснение:
+//     Класс Users:
+//     Этот класс наследуется от React.Component и типизирован с использованием двух типов: UsersPropsType для пропсов и RootStateType для состояния.
+//
+//     Конструктор:
+//     Конструктор класса Users принимает параметр props типа UsersPropsType.
+//     Внутри конструктора вызывается super(props), что необходимо для корректной инициализации базового класса React.Component.
+//
+//     Запрос данных:
+//     1. Внутри конструктора выполняется HTTP-запрос к API с использованием библиотеки axios.
+//     2. Запрос выполняется к URL https://social-network.samuraijs.com/api/1.0/users.
+//     3. После получения ответа (response), вызывается метод setUsers из пропсов (this.props.setUsers), который
+//     предназначен для обновления состояния компонента с полученными данными.
+//     4. Обработка ошибок. Добавлен блок catch для обработки ошибок при выполнении запроса.
+//
+//     Типизация:
+// constructor(props: UsersPropsType):
+// Это типизация для конструктора, который содержит все необходимые свойства, включая setUsers.
