@@ -9,6 +9,9 @@ import {
     unFollowAC,
     UsersType
 } from "../../redux/users-reducer";
+import React from "react";
+import {RootStateType} from "../../redux/store";
+import axios from "axios";
 import {Users} from "./Users";
 
 
@@ -31,10 +34,48 @@ type mapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number)=>void
     setTotalUsersCount: (totalCount: number) => void
 }
-
-
 // Тип для пропсов компонента UsersComponentUnused
 export type UsersPropsType = MapStateToPropsType & mapDispatchToPropsType
+
+// --- Container component ---
+// Контейнерная компонента, которая делает axios запросы
+export class UsersAPIComponent extends React.Component<UsersPropsType, RootStateType> {
+
+    componentDidMount() {
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+            .catch(error => { // Блок catch для обработки ошибок при выполнении запроса.
+                console.error('Error fetching users:', error);
+            });
+
+    }
+
+    onPageChanged = (pageNumber: number) => {
+
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+            .catch(error => { // Блок catch для обработки ошибок при выполнении запроса.
+                console.error('Error fetching users:', error);
+            });
+    }
+
+    render() {
+        return <Users totalUsersCount={this.props.usersPage.totalUsersCount}
+                      pageSize={this.props.usersPage.pageSize}
+                      currentPage={this.props.usersPage.currentPage}
+                      users={this.props.usersPage.users}
+                      onPageChanged={this.onPageChanged}
+                      follow={this.props.follow}
+                      unFollow={this.props.unFollow}/>
+    }
+}
 
 
 
@@ -71,5 +112,7 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // ca
     }
 }
 
-// Создаем контейнерный компонент & Экспортируем его
-export let UsersContainer = connect (mapStateToProps, mapDispatchToProps) (Users);
+// --- Container components ---
+// Создаем контейнерный компонент & Экспортируем его. Он связывает нас со store(ом) и redux(ом)
+// Обертка над UsersAPIComponent, которая делает axios запросы, тоже грязная side-эффект
+export let UsersContainer = connect (mapStateToProps, mapDispatchToProps) (UsersAPIComponent);

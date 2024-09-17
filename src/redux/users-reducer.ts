@@ -26,7 +26,7 @@ let initialState: initialStateType = { // одноразовый объект, �
     users: [],
     pageSize: 5,
     totalUsersCount: 0, // общее число user(ов)
-    currentPage: 6
+    currentPage: 1
 
 } // начальное состояние для страницы user(ов)
 
