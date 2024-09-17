@@ -5,7 +5,7 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC,
+    setUsersAC, toggleIsFetchingAC,
     unFollowAC,
     UsersType
 } from "../../redux/users-reducer";
@@ -13,6 +13,7 @@ import React from "react";
 import {RootStateType} from "../../redux/store";
 import axios from "axios";
 import {Users} from "./Users";
+import {Preloader} from "../common/Preloader/Preloader";
 
 
 
@@ -24,6 +25,7 @@ type MapStateToPropsType = {
         pageSize: number
         totalUsersCount: number
         currentPage: number
+        isFetching: boolean
     }
 }
 // Тип для mapDispatchToProps
@@ -33,6 +35,8 @@ type mapDispatchToPropsType = {
     setUsers: (users: UsersType[]) => void
     setCurrentPage: (pageNumber: number)=>void
     setTotalUsersCount: (totalCount: number) => void
+    toggleIsFetching: (isFetching: boolean)=> void
+
 }
 // Тип для пропсов компонента UsersComponentUnused
 export type UsersPropsType = MapStateToPropsType & mapDispatchToPropsType
@@ -43,8 +47,11 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
 
     componentDidMount() {
 
+        this.props.toggleIsFetching(true) // перед запросом мы говорим true покажи крутилку
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
             .then(response => {
+                this.props.toggleIsFetching(false) // когда к нам пришел ответ от серсера мы говорим false, убери крутилку
                 this.props.setUsers(response.data.items);
                 this.props.setTotalUsersCount(response.data.totalCount)
             })
@@ -57,8 +64,11 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
     onPageChanged = (pageNumber: number) => {
 
         this.props.setCurrentPage(pageNumber)
+        this.props.toggleIsFetching(true) // перед запросом мы говорим true покажи крутилку
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`)
             .then(response => {
+                this.props.toggleIsFetching(false) // когда к нам пришел ответ от серсера мы говорим false, убери крутилку
                 this.props.setUsers(response.data.items)
             })
             .catch(error => { // Блок catch для обработки ошибок при выполнении запроса.
@@ -67,13 +77,17 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
     }
 
     render() {
-        return <Users totalUsersCount={this.props.usersPage.totalUsersCount}
+        return <>
+            {this.props.usersPage.isFetching ? <Preloader /> : null}
+            <Users totalUsersCount={this.props.usersPage.totalUsersCount}
                       pageSize={this.props.usersPage.pageSize}
                       currentPage={this.props.usersPage.currentPage}
                       users={this.props.usersPage.users}
                       onPageChanged={this.onPageChanged}
                       follow={this.props.follow}
-                      unFollow={this.props.unFollow}/>
+                      unFollow={this.props.unFollow}
+            />
+        </>
     }
 }
 
@@ -86,7 +100,8 @@ let mapStateToProps = (state: AppRootStateType) => { // эта функция в
             users: state.usersPage.users, // данные которые мы возьмем из стейта
             pageSize: state.usersPage.pageSize,
             totalUsersCount: state.usersPage.totalUsersCount,
-            currentPage: state.usersPage.currentPage
+            currentPage: state.usersPage.currentPage,
+            isFetching: state.usersPage.isFetching
         }
     }
 }
@@ -108,6 +123,9 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // ca
         },
         setTotalUsersCount: (totalCount: number) =>{
             dispatch(setTotalUsersCountAC(totalCount))
+        },
+        toggleIsFetching: (isFetching: boolean) =>{
+            dispatch(toggleIsFetchingAC(isFetching))
         }
     }
 }
