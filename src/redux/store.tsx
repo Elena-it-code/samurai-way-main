@@ -1,5 +1,6 @@
-import {initialStateType} from "./dialogs-reducer";
 import {UsersPropsType} from "../components/Users/UsersContainer";
+import {ActionTypes} from "redux-form";
+import {ProfileProps} from "../components/Profile/ProfileInfo/ProfileContainer";
 
 type PostDataType = {
     id: number,
@@ -14,10 +15,10 @@ type MessagesType = {
     id: number
     message: string
 }
-type PostsDataTypeProps = {
+export type PostsDataTypeProps = {
     postsData: Array<PostDataType>
     newPostText: string
-
+    profile: ProfileProps
 }
 type DialogsItemType = {
     dialogs: DialogItemType[]
@@ -48,11 +49,7 @@ export type StoreType = {
 }
 
 
-export type ActionTypes = ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof updateNewMessageBodyAC>
-    | ReturnType<typeof sendMessageAC>
-    | ReturnType<typeof sidebarAC>
+
 
 
 
@@ -142,36 +139,7 @@ export type ActionTypes = ReturnType<typeof addPostAC>
 // }
 // store - OOP
 
-export const addPostAC = () => {
-    return {
-        type: "ADD-POST"
-    } as const
-}
 
-export const updateNewPostTextAC = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText
-    } as const
-}
-
-export const updateNewMessageBodyAC = (body: string) => {
-    return {
-        type: "UPDATE-NEW-MESSAGE-BODY",
-        body
-    } as const
-}
-export const sendMessageAC = () => {
-    return {
-        type: "SEND-MESSAGE"
-    } as const
-}
-
-export const sidebarAC = () => {
-    return {
-        type: " "
-    } as const
-}
 
 
 

@@ -2,6 +2,7 @@ import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import React from "react";
 import {UsersType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 
 //   --- Presentation component ---
@@ -42,9 +43,11 @@ export const Users = (props: UsersPropsComponentType) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
+                            <NavLink to={'/profile/' + u.id}>
                             <img className={styles.userPhoto}
                                  src={u.photos.small !== null ? u.photos.small : userPhoto}
                                  alt={'My avatar'}/>
+                            </NavLink>
                         </div>
                         <div>
                             {

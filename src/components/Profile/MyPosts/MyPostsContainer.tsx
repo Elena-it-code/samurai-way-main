@@ -1,11 +1,9 @@
-import React from "react";
-import {addPostAC, sendMessageAC, updateNewMessageBodyAC, updateNewPostTextAC} from "../../../redux/store";
 import {MyPosts} from "./MyPosts";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {AppRootStateType, store} from "../../../redux/redux-store";
-import {PostDataType} from "../../../redux/profile-reducer";
+import {addPostAC, PostDataType, updateNewPostTextAC} from "../../../redux/profile-reducer";
 import {Dispatch} from "redux";
-import {DialogsItemType} from "../../../redux/dialogs-reducer";
+
 
 
 

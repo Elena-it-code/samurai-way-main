@@ -1,4 +1,5 @@
-import {ActionTypes} from "./store";
+import {ActionTypes} from "./profile-reducer";
+
 
 export type DialogsItemType = {
     dialogs: DialogItemType[]
@@ -44,7 +45,7 @@ export const dialogsReducer = (state: initialStateType = initialState, action: A
         case "UPDATE-NEW-MESSAGE-BODY": {
             return {
                 ...state,
-                newMessageBody: action.body  // Обновляем newMessageBody
+                newMessageBody: action.payload.body  // Обновляем newMessageBody
             }
         }
         case "SEND-MESSAGE" : {

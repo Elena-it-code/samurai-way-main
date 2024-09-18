@@ -1,4 +1,4 @@
-import {ActionTypes, FriendsTypeProps, RootStateType} from "./store";
+import {ActionTypes} from "./profile-reducer";
 
 
 let initialState = {

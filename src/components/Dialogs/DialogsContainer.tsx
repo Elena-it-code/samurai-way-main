@@ -1,9 +1,9 @@
-import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/store";
-import {AppRootStateType, store} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/redux-store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {DialogsItemType} from "../../redux/dialogs-reducer";
+import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/profile-reducer";
 
 
 
