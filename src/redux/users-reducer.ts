@@ -75,16 +75,20 @@ const usersReducer = (state: initialStateType = initialState, action: ActionForU
 
 
 export type ActionForUsersTypes =
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 
+// Переименовали все наши f-ии ActionCreator(ы), убрали в наимннованиях f(ий) окончание AC.
+// Вместо followAC ---> follow,  вместо unFollowAC ---> unFollow, вместо setUsersAC ---> setUsers и так по аналогии с др. f(ми)
+// Для того, чтобы свойсвто и значение совпадали в объекте, переданном в Функцию mapDispatchToProps, как второй параметр компоненты connect,
+// чтобы записать просто одним знчанием и свойство и его згачение. Для сокращения написания кода
 
-export const followAC = (userID: number) => {
+export const follow = (userID: number) => {
     return {
         type: "FOLLOW",
         payload: {
@@ -93,7 +97,7 @@ export const followAC = (userID: number) => {
     } as const
 }
 
-export const unFollowAC = (userID: number) => {
+export const unFollow = (userID: number) => {
     return {
         type: "UNFOLLOW",
         payload: {
@@ -102,7 +106,7 @@ export const unFollowAC = (userID: number) => {
     } as const  // либо таким способом указываем const через as const
 }
 
-export const setUsersAC = (users: UsersType[]) => {
+export const setUsers = (users: UsersType[]) => {
     return {
         type: "SET-USERS",
         payload: {
@@ -111,7 +115,7 @@ export const setUsersAC = (users: UsersType[]) => {
     } as const
 }
 
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: "SET-CURRENT-PAGE",
         payload: {
@@ -120,7 +124,7 @@ export const setCurrentPageAC = (currentPage: number) => {
     } as const
 }
 
-export const setTotalUsersCountAC = (totalUsersCount: number) => {
+export const setTotalUsersCount = (totalUsersCount: number) => {
     return {
         type: "SET-TOTAL-USERS-COUNT",
         payload: {
@@ -129,7 +133,7 @@ export const setTotalUsersCountAC = (totalUsersCount: number) => {
     } as const
 }
 
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: "TOGGLE-IS-FETCHING",
         payload: {

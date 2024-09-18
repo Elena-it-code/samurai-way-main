@@ -1,12 +1,11 @@
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleIsFetchingAC,
-    unFollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleIsFetching,
+    unFollow,
     UsersType
 } from "../../redux/users-reducer";
 import React from "react";
@@ -106,8 +105,40 @@ let mapStateToProps = (state: AppRootStateType) => { // эта функция в
     }
 }
 
-// Функция mapDispatchToProps
-let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // callback(и), которые мы будем отправлять в нашу презентационную компоненту
+
+// --- Container components ---
+// Создаем контейнерный компонент & Экспортируем его. Он связывает нас со store(ом) и redux(ом)
+// Обертка над UsersAPIComponent, которая делает axios запросы, тоже грязная side-эффект
+//export let UsersContainer = connect (mapStateToProps, mapDispatchToProps) (UsersAPIComponent);
+export let UsersContainer = connect(mapStateToProps,
+    {
+        follow, // *** "короткая запись свойства"
+        unFollow,
+        setUsers,
+        setCurrentPage,
+        setTotalUsersCount,
+        toggleIsFetching
+    })(UsersAPIComponent);
+
+
+
+// ОБЪЯСНЕНИЕ: *** "короткая запись свойства"
+// Это принятая практика в JavaScript, и она называется "короткая запись свойства" (property shorthand).
+// Когда имя свойства и имя переменной, которая его определяет, совпадают, можно использовать короткую запись.
+// В нашем случае, follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, и toggleIsFetching — это имена свойств,
+// которые совпадают с именами переменных, которые их определяют. Поэтому можно записать их одним словом, как мы это и сделали.
+
+
+// Рефакторинг:
+//  Функцию mapDispatchToProps теперь передаем в виде объекта, а она за кадром автоматом пропишет сама dispatch(и)
+//  делаем ссылки на наши объекты ActionCreator(ы), объекты не создаются в памяти, это все теже объекты AC
+//  follow, свойсвто и значение совпадают, поэтому разрешено записать просто одним знчанием и свойство и его згачение.
+//  Для этого в user-reducer переименовали все наши f-ии ActionCreator(ы), убрали в наимннованиях f(ий) окончание AC.
+//  Вместо followAC ---> follow,  unFollow ---> unFollowAC  и так по аналогии с др. f(ми)
+
+
+// Функция mapDispatchToProps до Рефакторинга
+/*let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // callback(и), которые мы будем отправлять в нашу презентационную компоненту
     return {
         follow: (userId)=> {
             dispatch(followAC(userId))
@@ -128,9 +159,4 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // ca
             dispatch(toggleIsFetchingAC(isFetching))
         }
     }
-}
-
-// --- Container components ---
-// Создаем контейнерный компонент & Экспортируем его. Он связывает нас со store(ом) и redux(ом)
-// Обертка над UsersAPIComponent, которая делает axios запросы, тоже грязная side-эффект
-export let UsersContainer = connect (mapStateToProps, mapDispatchToProps) (UsersAPIComponent);
+}*/
