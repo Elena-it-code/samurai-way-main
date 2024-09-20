@@ -5,7 +5,6 @@ import './components/Profile/Profile.module.css';
 import './components/Navbar/Navbar.module.css';
 
 import {Navbar} from "./components/Navbar/Navbar";
-import {Header} from "./components/Header/Header";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
@@ -16,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
+import {HeaderContainer} from "./components/Header/HeaderContainer";
 
 
 
@@ -38,7 +38,7 @@ const App: React.FC<PropsType> = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header/>
+                <HeaderContainer />
                 <Navbar/>
                 <div className="app-wrapper-content">
                     {/*<Route /> следит за url, если написано /dialogs, значит выпоняет код ниже, т.е. запускает функцию render={() =>}*/}

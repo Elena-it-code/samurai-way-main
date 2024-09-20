@@ -1,6 +1,7 @@
 import {UsersPropsType} from "../components/Users/UsersContainer";
 import {ActionTypes} from "redux-form";
 import {ProfileProps} from "../components/Profile/ProfileInfo/ProfileContainer";
+import {UsersDataPropsType} from "./auth-reducer";
 
 type PostDataType = {
     id: number,
@@ -37,6 +38,7 @@ export type RootStateType = {
     dialogsPage: DialogsItemType
     sidebar: FriendsTypeProps
     usersPage: UsersPropsType
+    auth: UsersDataPropsType
 
 }
 
