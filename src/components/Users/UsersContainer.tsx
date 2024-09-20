@@ -48,7 +48,11 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
 
         this.props.toggleIsFetching(true) // перед запросом мы говорим true покажи крутилку
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`,
+            {
+                withCredentials: true
+        })
+
             .then(response => {
                 this.props.toggleIsFetching(false) // когда к нам пришел ответ от серсера мы говорим false, убери крутилку
                 this.props.setUsers(response.data.items);
@@ -65,7 +69,11 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true) // перед запросом мы говорим true покажи крутилку
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`,
+            {
+                withCredentials: true
+            })
+
             .then(response => {
                 this.props.toggleIsFetching(false) // когда к нам пришел ответ от серсера мы говорим false, убери крутилку
                 this.props.setUsers(response.data.items)

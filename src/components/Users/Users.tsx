@@ -3,6 +3,7 @@ import userPhoto from "../../assets/images/user.png";
 import React from "react";
 import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 //   --- Presentation component ---
@@ -50,14 +51,52 @@ export const Users = (props: UsersPropsComponentType) => {
                             </NavLink>
                         </div>
                         <div>
-                            {
-                                u.followed
+                            {u.followed
                                     ? <button onClick={() => {
-                                        props.unFollow(u.id)
+
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}` ,
+                                        {withCredentials: true,
+                                                headers: {
+                                                    'API-KEY': '89840915-003b-4683-9c71-791c31d58bf4'
+                                                }
+                                        } )
+
+                                        .then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                props.unFollow(u.id)
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error fetching users:', error);
+                                        });
+
+
                                     }}> Unfollow </button>
-                                    : <button onClick={() => {
-                                        props.follow(u.id)
-                                    }}> Follow </button>}
+
+
+
+                                : <button onClick={() => {
+
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}` , {},
+                                        {
+                                            withCredentials: true,
+                                            headers: {
+                                                'API-KEY': '89840915-003b-4683-9c71-791c31d58bf4'
+                                            }
+                                        } ) // *** 1
+
+                                        .then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                props.follow(u.id) // *** 2
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error fetching users:', error);
+                                        });
+
+                                }}> Follow </button>
+
+                            }
 
                         </div>
                     </span>
@@ -77,3 +116,17 @@ export const Users = (props: UsersPropsComponentType) => {
         </div>
     );
 }
+
+
+
+
+
+// ОБЪЯСНЕНИЕ:
+// *** 1
+// В запросе методе post принимает объект настройки в частности {withCredentials: true} как 3 параметром
+// *** 2
+// if (response.data.resultCode === 0) {
+//      props.follow(u.id)
+//  }
+// если все ОК, сервер подтвердил, что произошла отписка, resultCode === 0 ответ значит все ОК,
+// то мы тогда уже dispatch(им) этот callback() props.follow(u.id)

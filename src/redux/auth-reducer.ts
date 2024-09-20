@@ -31,11 +31,9 @@ let initialState: initialStateType = { // одноразовый объект, �
 
 
 const authReducer = (state: initialStateType = initialState, action: ActionForUsersDataTypes): initialStateType => { // то именно это объект initialState будет его начальным state(ом)
-    debugger
     switch (action.type) {
 
         case "SET-USER-DATA":
-            debugger
             return {
                 ...state,
                 ...action.payload.data,
