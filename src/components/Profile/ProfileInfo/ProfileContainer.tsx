@@ -1,10 +1,10 @@
 import React from "react";
 import {Profile} from "../Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../redux/redux-store";
 import {ProfileAPITypeProps, setUsersProfile} from "../../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {profileUserAPI} from "../../../api/api";
 
 
 type MapStateToPropsType = {
@@ -43,11 +43,11 @@ export class ProfileAPIContainer extends React.Component<MergedProps> { // ти�
 
         let userId = this.props.match.params.userId
         if(!userId) {
-            userId = '2'
+            userId = "2"
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                this.props.setUsersProfile(response.data);
+        profileUserAPI.getProfileUser(userId)
+            .then(data => {
+                this.props.setUsersProfile(data);
             })
             .catch(error => { // Блок catch для обработки ошибок при выполнении запроса.
                 console.error('Error fetching users:', error);
