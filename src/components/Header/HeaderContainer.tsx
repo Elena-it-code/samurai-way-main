@@ -13,10 +13,10 @@ type MapStateToPropsType = {
     login: string | null*/
 }
 
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
     setAuthUserData: (userId: number | null, email: string | null, login: string | null) => void
 }
-export type UserDataProps = MapStateToPropsType & mapDispatchToPropsType
+export type UserDataProps = MapStateToPropsType & MapDispatchToPropsType
 
 
 export class HeaderAPIContainer extends React.Component<UserDataProps> { // типизируем ProfileAPIContainer с объединенным типом MergedProps, чтобы он мог принимать как данные из Redux, так и параметры маршрута.

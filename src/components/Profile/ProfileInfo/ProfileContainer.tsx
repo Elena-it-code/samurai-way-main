@@ -13,11 +13,11 @@ type MapStateToPropsType = {
     }
 }
 // Тип для mapDispatchToProps
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
     setUsersProfile: (data: ProfileAPITypeProps)=> void
 }
 // Тип для пропсов компонента UsersComponentUnused
-export type ProfileProps = MapStateToPropsType & mapDispatchToPropsType
+export type ProfileProps = MapStateToPropsType & MapDispatchToPropsType
 
 
 //Мы создаем новый тип MergedProps, который объединяет ProfileProps и RouteComponentProps.

@@ -29,7 +29,7 @@ type MapStateToPropsType = {
     }
 }
 // Тип для mapDispatchToProps
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
     follow: (useId: number)=> void
     unFollow: (useId: number)=> void
     setUsers: (users: UsersType[]) => void
@@ -39,7 +39,7 @@ type mapDispatchToPropsType = {
 
 }
 // Тип для пропсов компонента UsersComponentUnused
-export type UsersPropsType = MapStateToPropsType & mapDispatchToPropsType
+export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 // --- Container component ---
 // Контейнерная компонента, которая делает axios запросы
@@ -139,7 +139,7 @@ export let UsersContainer = connect(mapStateToProps,
 
 
 // Функция mapDispatchToProps до Рефакторинга
-/*let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // callback(и), которые мы будем отправлять в нашу презентационную компоненту
+/*let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => { // callback(и), которые мы будем отправлять в нашу презентационную компоненту
     return {
         follow: (userId)=> {
             dispatch(followAC(userId))

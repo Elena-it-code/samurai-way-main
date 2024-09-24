@@ -36,19 +36,19 @@ type MapStateToPropsType = {
     dialogsPage: DialogsItemType
 }
 
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
     sendMessage: ()=> void
     updateNewMessageBody: (body: string)=> void,
 }
 
-export type DialogsPropsType = MapStateToPropsType & mapDispatchToPropsType
+export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 let mapStateToProps = (state: AppRootStateType) => { // эта функция возвращает объект. В этом объекте будут сидеть данные из стейта. dialogsPage как свойство попадет в пропсы в нашу компоненту
     return {
         dialogsPage: state.dialogsPage
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => { // callback(и), которые мы будем отправлять в нашу презентационную компоненту
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => { // callback(и), которые мы будем отправлять в нашу презентационную компоненту
     return {
         sendMessage: ()=> {
             dispatch(sendMessageAC());
