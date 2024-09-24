@@ -10,9 +10,10 @@ import {
 } from "../../redux/users-reducer";
 import React from "react";
 import {RootStateType} from "../../redux/store";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
+
 
 
 
@@ -48,15 +49,11 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
 
         this.props.toggleIsFetching(true) // перед запросом мы говорим true покажи крутилку
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`,
-            {
-                withCredentials: true
-        })
-
-            .then(response => {
+        usersAPI.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false) // когда к нам пришел ответ от серсера мы говорим false, убери крутилку
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount)
             })
             .catch(error => { // Блок catch для обработки ошибок при выполнении запроса.
                 console.error('Error fetching users:', error);
@@ -69,16 +66,12 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true) // перед запросом мы говорим true покажи крутилку
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`,
-            {
-                withCredentials: true
-            })
+        usersAPI.getUsers(pageNumber, this.props.usersPage.pageSize).then((data: { items: UsersType[]; }) => {
 
-            .then(response => {
-                this.props.toggleIsFetching(false) // когда к нам пришел ответ от серсера мы говорим false, убери крутилку
-                this.props.setUsers(response.data.items)
-            })
-            .catch(error => { // Блок catch для обработки ошибок при выполнении запроса.
+            this.props.toggleIsFetching(false) // когда к нам пришел ответ от серсера мы говорим false, убери крутилку
+            this.props.setUsers(data.items)
+        })
+            .catch((error: any) => { // Блок catch для обработки ошибок при выполнении запроса.
                 console.error('Error fetching users:', error);
             });
     }
@@ -87,12 +80,12 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
         return <>
             {this.props.usersPage.isFetching ? <Preloader /> : null}
             <Users totalUsersCount={this.props.usersPage.totalUsersCount}
-                      pageSize={this.props.usersPage.pageSize}
-                      currentPage={this.props.usersPage.currentPage}
-                      users={this.props.usersPage.users}
-                      onPageChanged={this.onPageChanged}
-                      follow={this.props.follow}
-                      unFollow={this.props.unFollow}
+                   pageSize={this.props.usersPage.pageSize}
+                   currentPage={this.props.usersPage.currentPage}
+                   users={this.props.usersPage.users}
+                   onPageChanged={this.onPageChanged}
+                   follow={this.props.follow}
+                   unFollow={this.props.unFollow}
             />
         </>
     }
@@ -101,7 +94,7 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, RootState
 
 
 // Функция mapStateToProps
-let mapStateToProps = (state: AppRootStateType) => { // эта функция возвращает объект. В этом объекте будут сидеть данные из стейта. usersPage как свойство попадет в пропсы в нашу компоненту
+let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => { // эта функция возвращает объект. В этом объекте будут сидеть данные из стейта. usersPage как свойство попадет в пропсы в нашу компоненту
     return {
         usersPage: {
             users: state.usersPage.users, // данные которые мы возьмем из стейта
