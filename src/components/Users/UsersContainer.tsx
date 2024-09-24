@@ -30,8 +30,8 @@ type MapStateToPropsType = {
 }
 // Тип для mapDispatchToProps
 type MapDispatchToPropsType = {
-    follow: (useId: number)=> void
-    unFollow: (useId: number)=> void
+    follow: (userId: number)=> void
+    unFollow: (userId: number)=> void
     setUsers: (users: UsersType[]) => void
     setCurrentPage: (pageNumber: number)=>void
     setTotalUsersCount: (totalCount: number) => void
