@@ -10,7 +10,6 @@ const instance = axios.create({
 })
 
 
-
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) { // передали 1 и 10 , по умолчанию если не передано ничего
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
@@ -21,7 +20,6 @@ export const usersAPI = {
 }
 
 export const followAPI = (userId: number) => {
-
     return instance.post(`follow/${userId}`)
         .then((response) => {
             return response.data;
@@ -29,7 +27,6 @@ export const followAPI = (userId: number) => {
 }
 
 export const unFollowAPI = (userId: number) => {
-
     return instance.delete(`follow/${userId}`)
         .then((response) => {
             return response.data;
@@ -37,7 +34,12 @@ export const unFollowAPI = (userId: number) => {
 }
 
 export const authAPI = {
-
+    getAuth() {
+        return instance.get(`auth/me`)
+            .then((response => {
+                return response.data;
+            }));
+    }
 }
 
 

@@ -3,7 +3,7 @@ import {AppRootStateType} from "../../redux/redux-store";
 import {Header} from "./Header";
 import {setAuthUserData, UserDataType} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
-import axios from "axios";
+import {authAPI} from "../../api/api";
 
 
 type MapStateToPropsType = {
@@ -23,22 +23,17 @@ export class HeaderAPIContainer extends React.Component<UserDataProps> { // ти
 
 
     // *** ОБЪЯСНЕНИЕ ***
-    componentDidMount() { // ### 1
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true}) // ### 2
-            .then(response => { // ### 3
-                console.log('Response status:', response.status); // *** 1
-                console.log('Response data:', response.data); // *** 2
-                if (response.data.resultCode === 0) {
-                    let {id: userId, email, login} = response.data.data;
-                    console.log('Setting user data:', userId, email, login); // *** 3
+    componentDidMount() {
+
+        authAPI.getAuth()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let {id: userId, email, login} = data.data;
                     this.props.setAuthUserData(userId, email, login);
-                } else {
-                    console.error('Error fetching user data:', response.data.messages); // *** 4
                 }
             })
             .catch(error => { // ### 4
                 console.error('Error fetching users:', error);
-                console.error('Error details:', error.response); // *** 5
             });
     }
 
@@ -67,16 +62,6 @@ export let HeaderContainer = connect(mapStateToProps,
     })(HeaderAPIContainer)
 
 
-
-
-
-
-
-
-
-
-
-
 // *** ОБЪЯСНЕНИЕ *** :
 // *** 1  Проверка статуса ответа
 // Проверяем, что статус ответа равен 200 (успешный запрос).
@@ -89,9 +74,26 @@ export let HeaderContainer = connect(mapStateToProps,
 // *** 5  Добавили этот log() для более детальной информации
 
 
-
-
-
+// componentDidMount() { // ### 1
+//         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true}) // ### 2
+//             .then(response => { // ### 3
+//                 console.log('Response status:', response.status); // *** 1
+//                 console.log('Response data:', response.data); // *** 2
+//                 if (response.data.resultCode === 0) {
+//                     let {id: userId, email, login} = response.data.data;
+//                     console.log('Setting user data:', userId, email, login); // *** 3
+//                     this.props.setAuthUserData(userId, email, login);
+//                 } else {
+//                     console.error('Error fetching user data:', response.data.messages); // *** 4
+//                 }
+//             })
+//             .catch(error => { // ### 4
+//                 console.error('Error fetching users:', error);
+//                 console.error('Error details:', error.response); // *** 5
+//             });
+//     }
+//
+//
 // *** ОБЪЯСНЕНИЕ *** :
 // В этом коде выполняется следующая последовательность действий:
 //
