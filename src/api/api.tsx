@@ -20,6 +20,26 @@ export const usersAPI = {
     }
 }
 
+export const followAPI = (userId: number) => {
+
+    return instance.post(`follow/${userId}`)
+        .then((response) => {
+            return response.data;
+        })
+}
+
+export const unFollowAPI = (userId: number) => {
+
+    return instance.delete(`follow/${userId}`)
+        .then((response) => {
+            return response.data;
+        })
+}
+
+export const authAPI = {
+
+}
+
 
 
 
